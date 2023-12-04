@@ -48,6 +48,9 @@
     <string name="email_address">Email Address</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="register">Register</string>
+    <string name="email_hint">Please type your email address</string>
+    <string name="password_hint">Please type your password</string>
+    <string name="confirmation_hint"> Please Confirm password</string>
 
     <!-- Strings related to Dashboard -->
     <string name="dashboard">Dashboard</string>
