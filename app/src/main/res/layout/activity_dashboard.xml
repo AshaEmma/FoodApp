@@ -53,13 +53,13 @@
                 />
 
             <Button
-                android:id="@+id/btnGotoProfile"
+                android:id="@+id/btnGotoWaterIntake"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/water_intake" />
 
             <Button
-                android:id="@+id/btnGoToPrivacy"
+                android:id="@+id/btnGoToCalendar"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:text="@string/view_calendar"
