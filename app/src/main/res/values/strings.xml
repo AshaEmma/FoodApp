@@ -64,4 +64,10 @@
     <string name="fridge">Fridge</string>
     <string name="food_intake">Food Record</string>
 
+    <!-- Strings related to profile -->
+    <string name="customerName">Customer Name</string>
+    <string name="birth_date"> Date of Birth</string>
+    <string name="change_password">Change Password</string>
+    <string name="confirm_changes">Confirm Changes</string>
+
 </resources>

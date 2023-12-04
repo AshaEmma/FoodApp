@@ -4,6 +4,149 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:background="@drawable/matcha_drink"
     tools:context=".Profile">
+
+    <include
+        layout="@layout/custom_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10sp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="22dp">
+
+        <!-- Change to edit text view -->
+        <TextView
+            android:id="@+id/strCustomerName"
+            android:layout_width="300sp"
+            android:layout_height="wrap_content"
+            android:text="@string/customerName"
+            android:layout_marginTop="20sp"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+
+
+            <LinearLayout
+                android:layout_width="300sp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80sp"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <EditText
+                    android:id="@+id/txtUsername"
+                    android:layout_width="300sp"
+                    android:layout_height="50sp"
+                    android:autofillHints="username"
+                    android:inputType="text"
+                    android:hint="@string/username"
+                    android:background="@drawable/textfield_shape"
+                    android:fontFamily="@font/amaranth"
+                    android:textColor="@color/greyBlueCool"
+                    android:textSize="12sp"
+                    android:gravity="top"
+                    android:paddingStart="5sp"
+                    android:paddingEnd="5sp"
+                    android:paddingTop="3sp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10sp"
+                    tools:ignore="LabelFor" />
+
+
+                <EditText
+                    android:id="@+id/txtDOB"
+                    android:layout_width="300sp"
+                    android:layout_height="50sp"
+                    android:ems="10"
+                    android:background="@drawable/textfield_shape"
+                    android:inputType="date"
+                    android:hint="@string/birth_date"
+                    android:autofillHints="Date of Birth"
+                    android:fontFamily="@font/amaranth"
+                    android:textColor="@color/greyBlueCool"
+                    android:paddingStart="5sp"
+                    android:paddingEnd="5sp"
+                    android:textSize="12sp"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+
+                    android:paddingTop="3sp"
+                    android:layout_marginBottom="10sp"
+                    tools:ignore="LabelFor" />
+
+
+
+
+
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_width="300sp"
+                    android:layout_height="50sp"
+                    android:ems="10"
+                    android:background="@drawable/textfield_shape"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/email_address"
+                    android:autofillHints="Fill in email"
+                    android:fontFamily="@font/amaranth"
+                    android:textColor="@color/greyBlueCool"
+                    android:textSize="12sp"
+                    android:gravity="top"
+                    android:paddingStart="5sp"
+                    android:paddingEnd="5sp"
+                    android:paddingTop="3sp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="10sp"
+                    tools:ignore="LabelFor" />
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:layout_width="300sp"
+                    android:layout_height="50sp"
+                    android:ems="10"
+                    android:background="@drawable/textfield_shape"
+                    android:inputType="textPassword"
+                    android:hint="@string/change_password"
+                    android:autofillHints="Change Password"
+                    android:fontFamily="@font/amaranth"
+                    android:textColor="@color/greyBlueCool"
+                    android:textSize="12sp"
+                    android:gravity="top"
+                    android:paddingStart="5sp"
+                    android:paddingEnd="5sp"
+                    android:paddingTop="3sp"
+                    android:layout_gravity="center"
+                    tools:ignore="LabelFor" />
+            </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnEditProfileSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
+            android:text="@string/confirm_changes"
+            android:fontFamily="@font/vollkorn_semibold"
+            android:background="@drawable/btn_shape3"
+            android:layout_gravity="center"
+            tools:ignore="TouchTargetSizeCheck"/>
+
+
+
+
+
+
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
