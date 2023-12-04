@@ -24,12 +24,14 @@
     <string name="OnBackground">On Background</string>
     <string name="OnSurface">On Surface</string>
     <string name="OnError">On Error</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-
+    <string name="welcome_back">Welcome Back</string>
+    <string name="new_user">New User</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -38,6 +40,8 @@
     <string name="menu_label_Learn_More">Learn More</string>
     <string name="menu_label_About_Us">About Us</string>
     <string name="menu_label_Contact_Us">Contact Us</string>
+    <string name="persistence">Keep Me Logged In</string>
+
     <!-- General/Shared strings -->
     <string name="login">Log in</string>
     <string name="keep_me_signed_in">Keep Me Signed In</string>
@@ -54,4 +58,10 @@
 
     <!-- Strings related to Dashboard -->
     <string name="dashboard">Dashboard</string>
+    <string name="view_profile">Profile</string>
+    <string name="water_intake">Water Intake</string>
+    <string name="view_calendar">Calendar</string>
+    <string name="fridge">Fridge</string>
+    <string name="food_intake">Food Record</string>
+
 </resources>
