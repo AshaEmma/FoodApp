@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="greyBlue">#BCD7E7</color>
+    <color name="greyViolet">#BCCDE7</color>
+    <color name="greyLavender">#BCC2E7</color>
+    <color name="shadeGreyBlue">#A5BCCA</color>
+    <color name="tintGreyBlue">#D5DEE8</color>
+    <color name="shadeDeepGreyBlue">#5E6C73</color>
+    <color name="shadeDarkDeepGreyBlue">#475157</color>
+    <color name="greyBlueCool">#ACBDD0</color>
+    <color name="pastelYellow">#FFEF7B</color>
+    <color name="yellowOlive">#80773D</color>
+    <color name="tonePastelYellow">#9F9B7E</color>
+    <color name="Periwinkle">#7B8BFF</color>
+    <color name="orangeRedTone">#D31723</color>
+    <color name="transTintGreyBlue">#BED5DEE8</color>
+    <color name="transGreyBlueCool">#BEACBDD0</color>
+    <color name="transGreyLavender">#BEBCC2E7</color>
+    <color name="transGreyViolet">#BEBCCDE7</color>
+    <color name="neutralPaleOrange">#BFE7D6BC</color>
+    <color name="holo_blue_light">#FF33B5E5</color>
+    <color name="halo_blue_alt">#ED78B4D8</color>
+    <color name="trans_halo_blue_alt">#AD78B4D8</color>
+    <color name="halo_blue_end">#EF0C2F3C</color>
+    <color name="trans_halo_blue_start">#C9CCDBE4</color>
+    <color name="trans_wheat">#98D0BFAC</color>
+    <color name="trans_wheat_tone">#AEB3AD8E</color>
+    <color name="trans_blackberry">#A971617C</color>
+    <color name="trans_tone_blackberry">#201F21</color>
+    <color name="solid_grey_white">#EAE4E8EC</color>
+    <color name="trans_tint_neutralBlue">#43D1F1F5</color>
+    <color name="light_trans_tint_neuBlue">#21538294</color>
+    <color name="trans_denim_blue">#E02785A8</color>
+    <color name="trans_denim_tone">#AF3D849E</color>
+</resources>

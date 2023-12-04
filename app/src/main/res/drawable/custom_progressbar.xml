@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- For the circle background -->
+    <item android:id="@android:id/background">
+        <shape
+            android:shape="ring"
+            android:thicknessRatio="16"
+            android:useLevel="false">
+            <solid android:color="@color/trans_halo_blue_start"/>
+        </shape>
+    </item>
+
+    <!-- For the circle progress -->
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="270"
+            android:toDegrees="270">
+            <shape
+                android:shape="ring"
+                android:thicknessRatio="16"
+                android:useLevel="true">
+                <gradient
+                    android:startColor="@color/halo_blue_alt"
+                    android:endColor="@color/halo_blue_end"
+                    android:type = "sweep"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

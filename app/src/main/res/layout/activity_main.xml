@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@drawable/coffee_with_plate2"
+    android:layout_margin="10dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:layout_editor_absoluteX="88dp"
+        tools:layout_editor_absoluteY="22dp">
+
+        <TextView
+            android:id="@+id/Welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="-60sp"
+            android:gravity="center"
+            android:text="@string/welcome"
+            android:fontFamily="@font/amaranth"
+            android:textColor="@color/white"
+            android:textSize="60sp" />
+
+
+        <TextView
+            android:id="@+id/getstarted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vollkorn_semibold"
+            android:gravity="center"
+            android:text="@string/food_quote"
+            android:textColor="@color/shadeDeepGreyBlue"
+            android:textSize="11sp"
+            android:textStyle="italic" />
+
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:fontFamily="@font/vollkorn_semibold"
+            android:text="@string/login"
+            android:background="@drawable/btn_shape3"
+            android:textColor="@color/white"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+
+        <Button
+            android:id="@+id/signup"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            app:backgroundTint="@null"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:background="@drawable/btn_shape4"
+            android:fontFamily="@font/vollkorn_semibold"
+            android:text="@string/sign_up"
+            android:textColor="@color/shadeDeepGreyBlue"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
