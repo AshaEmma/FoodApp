@@ -24,6 +24,7 @@
     <string name="OnBackground">On Background</string>
     <string name="OnSurface">On Surface</string>
     <string name="OnError">On Error</string>
+    <string name="Date">Today\'s Date</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

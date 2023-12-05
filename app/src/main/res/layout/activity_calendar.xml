@@ -25,17 +25,27 @@
         app:layout_constraintTop_toTopOf="parent">
         <!-- Add TextView to display the date -->
         <TextView
-            android:id="@+id/dateView"
+            android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="150dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/amaranth"
             android:text="@string/Calendar"
             android:textColor="@color/shadeDarkDeepGreyBlue"
             android:textSize="30sp"
             android:textStyle="bold" />
-
+        <TextView
+            android:id="@+id/dateView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/Date"
+            android:textColor="@color/shadeDarkDeepGreyBlue"
+            android:textSize="15sp"
+            />
         <!-- Add CalendarView to display the Calendar -->
         <CalendarView
             android:id="@+id/calendar"
@@ -51,6 +61,7 @@
             android:foregroundGravity="center_horizontal"
 
            />
+
 <!-- TODO:        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" -->
 <!--        android:theme="@style/CalenderViewCustom"-->
 <!--        android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
