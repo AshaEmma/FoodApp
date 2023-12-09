@@ -65,10 +65,16 @@
     <string name="fridge">Fridge</string>
     <string name="food_intake">Food Record</string>
 
-    <!-- Strings related to profile -->
+    <!-- Strings related to profile_edit -->
     <string name="customerName">Customer Name</string>
     <string name="birth_date"> Date of Birth</string>
     <string name="change_password">Change Password</string>
     <string name="confirm_changes">Confirm Changes</string>
+    <string name="existing_users">Existing Users</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="fetch">FETCH</string>
+    <string name="User_Welcome">Welcome please edit your profile below:</string>
+    <string name="Welcome_back">Welcome back!</string>
 
 </resources>

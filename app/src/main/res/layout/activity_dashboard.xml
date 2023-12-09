@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/trans_halo_blue_start"
     android:layout_margin="10sp"
-    tools:context=".Dashboard">
+    tools:context=".DashboardActivity">
 
     <include
         layout="@layout/custom_status_bar"
@@ -58,12 +58,6 @@
                 android:layout_height="50dp"
                 android:text="@string/water_intake" />
 
-            <Button
-                android:id="@+id/btnGoToCalendar"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="@string/view_calendar"
-                />
 
             <Button
                 android:id="@+id/btnGoToFridge"

@@ -8,14 +8,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.MotionEvent;
-import android.widget.CalendarView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
 
 
-public class Calendar extends AppCompatActivity {
-    CalendarView calendar;
+public class CalendarView extends AppCompatActivity {
+    android.widget.CalendarView calendar;
     String date;
     TextView dateView;
     @Override
@@ -35,13 +34,12 @@ public class Calendar extends AppCompatActivity {
         calendar
 
                 .setOnDateChangeListener(
-                        new CalendarView
-                                .OnDateChangeListener() {
+                        new android.widget.CalendarView.OnDateChangeListener() {
                             @Override
 
                             // get the value of DAYS, MONTH, YEARS
                             public void onSelectedDayChange(
-                                    @NonNull CalendarView view,
+                                    @NonNull android.widget.CalendarView view,
                                     int year,
                                     int month,
                                     int dayOfMonth)

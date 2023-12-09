@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="10sp"
     android:background="@color/transTintGreyBlue"
-    tools:context=".Calendar">
+    tools:context=".CalendarView">
 
     <include
         layout="@layout/custom_status_bar"
