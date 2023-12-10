@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">NewFridge</string>
+    <string name="category_prompt">Select a Category</string>
+    <string name="unit_prompt">Select a Unit</string>
+    <string name="fridge_item">Fridge Item</string>
+    <string name="food_icon">Food Icon</string>
+</resources>

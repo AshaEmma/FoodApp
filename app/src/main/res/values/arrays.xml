@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category_array">
+        <item>Vegetables</item>
+        <item>Fruits</item>
+        <item>Grains</item>
+        <item>Meat</item>
+        <item>Dairy</item>
+        <item>Oils</item>
+        <item>Beverages</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="unit_array">
+        <item>kilogram</item>
+        <item>gram</item>
+        <item>liter</item>
+        <item>ounce</item>
+        <item>pound</item>
+        <item>units</item>
+    </string-array>
+</resources>

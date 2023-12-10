@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextNewItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Product Name" />
+
+    <Spinner
+        android:id="@+id/spinnerCategory"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNewItem"
+        android:layout_marginTop="52dp"
+        android:prompt="@string/category_prompt" />
+
+    <Button
+        android:id="@+id/buttonFridge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerCategory"
+        android:layout_marginTop="47dp"
+        android:background="@drawable/default_button_background"
+        android:onClick="onStorageTypeClicked"
+        android:text="Fridge" />
+
+    <Button
+        android:id="@+id/buttonFreezer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerCategory"
+        android:layout_marginLeft="89dp"
+        android:layout_marginTop="45dp"
+        android:layout_toRightOf="@id/buttonFridge"
+        android:background="@drawable/default_button_background"
+        android:onClick="onStorageTypeClicked"
+        android:text="Freezer" />
+
+    <EditText
+        android:id="@+id/editTextQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonFridge"
+        android:layout_marginTop="57dp"
+        android:hint="Quantity"
+        android:inputType="numberDecimal" />
+
+    <Spinner
+        android:id="@+id/spinnerUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonFridge"
+        android:layout_marginLeft="91dp"
+        android:layout_marginTop="65dp"
+        android:layout_toRightOf="@id/editTextQuantity"
+        android:prompt="@string/unit_prompt" />
+
+    <EditText
+        android:id="@+id/editTextExpiryDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinnerUnit"
+        android:layout_marginTop="58dp"
+        android:drawableEnd="@drawable/ic_calendar"
+        android:focusable="false"
+        android:hint="Set expiry date"
+        android:inputType="none" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextExpiryDate"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onSaveClicked"
+            android:text="Save" />
+
+        <Space
+            android:layout_width="30dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/buttonBackToFridge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back to Fridge" />
+    </LinearLayout>
+
+</RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/editTextExpiryDate"-->
+    <!--android:layout_marginTop="30dp"-->
+    <!--android:orientation="horizontal"-->
+    <!--android:gravity="center_horizontal">-->
+
+    <!--<Button-->
+    <!--    android:id="@+id/buttonSave"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:onClick="onSaveClicked"-->
+    <!--    android:text="Save" />-->
+
+    <!--<Space-->
+    <!--    android:layout_width="30dp"-->
+    <!--    android:layout_height="wrap_content" />-->
+
+    <!--<Button-->
+    <!--    android:id="@+id/buttonBackToFridge"-->
+    <!--    android:layout_width="wrap_content"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:text="Back to Fridge" />-->
+    <!--</LinearLayout>-->
