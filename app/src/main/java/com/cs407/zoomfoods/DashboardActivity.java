@@ -40,6 +40,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openFoodActivity(){
-        //TODO: navigate to food activity
+        Intent foodActivity = new Intent(DashboardActivity.this, foodTracking.class);
+        startActivity(foodActivity);
     }
 }
