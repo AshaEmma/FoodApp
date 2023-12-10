@@ -68,6 +68,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void openWaterActivity(){
         //TODO: navigate to water activity
+        //Intent waterActivity = new Intent(DashboardActivity.this, );
     }
 
 
