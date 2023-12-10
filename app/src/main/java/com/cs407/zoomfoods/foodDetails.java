@@ -110,6 +110,7 @@ public class foodDetails extends AppCompatActivity {
                 submitButton.setVisibility(View.VISIBLE);
                 gramsText.setVisibility(View.VISIBLE);
                 itemGrams.setText("Amount in grams:");
+                editButton.setVisibility(View.INVISIBLE);
             }
         });
     }
