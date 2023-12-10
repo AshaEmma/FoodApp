@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ZoomFoods</string>
+    <string name="preference_file_key">com.cs407.zoomfoods.PREFERENCE_FILE_KEY</string>
 
     <!-- activity_Welcome strings -->
     <string name="welcome">"Welcome!"</string>
@@ -42,6 +43,7 @@
     <string name="menu_label_About_Us">About Us</string>
     <string name="menu_label_Contact_Us">Contact Us</string>
     <string name="persistence">Keep Me Logged In</string>
+    <string name="log_out">Logout</string>
 
     <!-- General/Shared strings -->
     <string name="login">Log in</string>
@@ -76,5 +78,10 @@
     <string name="fetch">FETCH</string>
     <string name="User_Welcome">Welcome please edit your profile below:</string>
     <string name="Welcome_back">Welcome back!</string>
+
+    <!-- String related to menu -->
+    <string name="update_profile">Update Profile</string>
+    <string name="profile">Profile</string>
+    <string name="toolbar_style">toolbar_style</string>
 
 </resources>

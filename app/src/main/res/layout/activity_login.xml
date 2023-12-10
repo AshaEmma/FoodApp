@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/parfait"
     android:backgroundTintMode="src_over"
-    android:layout_margin="10dp"
+    android:layout_margin="5sp"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -40,8 +40,8 @@
             android:background="@drawable/textfield_shape"
             android:inputType="textEmailAddress"
             android:textColor="@color/shadeGreyBlue"
-            android:textSize="12sp"
-            android:gravity="top"
+            android:textSize="20sp"
+            android:gravity="center"
             android:paddingStart="5sp"
             android:paddingEnd="5sp"
             android:paddingTop="3sp"
@@ -64,8 +64,8 @@
             android:hint="@string/password_hint"
             android:inputType="textPassword"
             android:fontFamily="@font/amaranth"
-            android:textSize="12sp"
-            android:gravity="top"
+            android:textSize="20sp"
+            android:gravity="center"
             android:paddingStart="5sp"
             android:paddingEnd="5sp"
             android:paddingTop="3sp"

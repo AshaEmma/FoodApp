@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cs407.zoomfoods.database.DBService;
 import com.cs407.zoomfoods.database.FoodAppDatabase;
 import com.cs407.zoomfoods.database.entities.UserProfile;
+import com.cs407.zoomfoods.services.UserSessionService;
 import com.cs407.zoomfoods.utils.Constants;
 import com.cs407.zoomfoods.utils.StringUtils;
 
@@ -36,12 +37,9 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_profile);
         db = DBService.getAppDatabase();
 
-        Intent intent = getIntent();
-        userId = intent.getLongExtra(Constants.USER_ID, -1);
-
-        if (userId == -1) {
-            throw new IllegalArgumentException("User ID is required");
-        }
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
 
         firstName = findViewById(R.id.FirstName);
         lastName = findViewById(R.id.LastName);
@@ -106,5 +104,13 @@ public class CreateProfileActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

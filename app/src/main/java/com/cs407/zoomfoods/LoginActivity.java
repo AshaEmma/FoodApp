@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.cs407.zoomfoods.database.DBService;
 import com.cs407.zoomfoods.database.FoodAppDatabase;
 import com.cs407.zoomfoods.database.entities.User;
+import com.cs407.zoomfoods.services.UserSessionService;
 import com.cs407.zoomfoods.utils.Constants;
 import com.cs407.zoomfoods.utils.StringUtils;
 
@@ -59,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
 
             Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
             showDashboardActivity(user.id);
-            // TODO: Cache login user so we don't have to pass userId via all intents
         } catch (Exception e) {
             Log.e("LOGIN", "Error fetching user for userName=" + username, e);
             Toast.makeText(getApplicationContext(), "Ooops! We had trouble creating that user. Please try again.", Toast.LENGTH_SHORT).show();
@@ -67,9 +67,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showDashboardActivity(long userId) {
+        UserSessionService.getInstance().setUserId(userId);
         Intent loginIntent = new Intent(LoginActivity.this, DashboardActivity.class);
-        loginIntent.putExtra(Constants.USER_ID, userId);
         startActivity(loginIntent);
+        finish();
     }
 
     public void openRegistrationActivity() {

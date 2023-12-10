@@ -22,7 +22,7 @@
         <!-- Error color. -->
         <item name="colorError">@color/orangeRedTone</item>
 
-        <item name="colorAccent">@color/pastelYellow</item>
+        <item name="colorAccent">@color/shadeDeepGreyBlue</item>
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->

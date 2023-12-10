@@ -4,80 +4,120 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/light_trans_tint_neuBlue"
     tools:context=".DisplayProfileActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/layout_text"
+        app:popupTheme="@style/toolbar_style" />
 
     <LinearLayout
 
         android:id="@+id/layout_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-       >
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="40sp"
+    android:orientation="horizontal"
+    android:layout_marginTop="60sp">
+    <Button
+        android:id="@+id/btnLogoutFromProfile"
+        android:layout_width="90sp"
+        android:layout_height="40sp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="310sp"
+        android:layout_marginEnd="20sp"
+        android:hint="@string/log_out"
+        android:text="@string/log_out"
+        app:backgroundTint="@null"
+        android:background="@drawable/btn_shape5"
+        android:fontFamily="@font/amaranth"
+        android:textSize="11sp"
+        tools:ignore="TouchTargetSizeCheck">
+
+    </Button>
+
+</LinearLayout>
         <TextView
             android:id="@+id/Welcome_Back"
             android:layout_width="300sp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="0sp"
+            android:fontFamily="@font/amaranth_bold"
             android:text="@string/Welcome_back"
-            android:layout_marginTop="20sp"
             android:textAlignment="center"
+            android:textColor="@color/shadeDeepGreyBlue"
             android:textSize="30sp"
-            android:textStyle="bold"
-            android:layout_gravity="center"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/name"
             android:layout_width="300sp"
             android:layout_height="40sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40sp"
+            android:layout_marginBottom="10sp"
             android:autofillHints="username"
-            android:hint="@string/first_name"
             android:fontFamily="@font/amaranth"
+            android:gravity="center_horizontal"
+            android:hint="@string/first_name"
             android:textColor="@color/greyBlueCool"
             android:textSize="20sp"
-            android:gravity="center_horizontal"
-            android:paddingTop="3sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10sp"
-            tools:ignore="LabelFor"
-            />
+            tools:ignore="LabelFor" />
 
         <TextView
             android:id="@+id/DOB"
             android:layout_width="300sp"
             android:layout_height="40sp"
-            android:autofillHints="username"
-            android:hint="@string/birth_date"
-            android:fontFamily="@font/amaranth"
-            android:textColor="@color/greyBlueCool"
-            android:textSize="20sp"
-            android:gravity="center_horizontal"
-            android:paddingTop="3sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10sp"
-            tools:ignore="LabelFor"
-            />
+            android:autofillHints="username"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_horizontal"
+            android:hint="@string/birth_date"
+            android:paddingTop="3sp"
+            android:textColor="@color/greyBlueCool"
+            android:textSize="20sp"
+            tools:ignore="LabelFor" />
 
         <TextView
             android:id="@+id/emailAddress"
             android:layout_width="300sp"
             android:layout_height="40sp"
-            android:autofillHints="username"
-            android:hint="@string/email_address"
-            android:fontFamily="@font/amaranth"
-            android:textColor="@color/greyBlueCool"
-            android:textSize="20sp"
-            android:gravity="center_horizontal"
-            android:paddingTop="3sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10sp"
-            tools:ignore="LabelFor"
-            />
+            android:autofillHints="username"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center_horizontal"
+            android:hint="@string/email_address"
+            android:paddingTop="3sp"
+            android:textColor="@color/greyBlueCool"
+            android:textSize="20sp"
+            tools:ignore="LabelFor" />
 
         <include
             layout="@layout/activity_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_width="400sp"
+            android:layout_height="450sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10sp" />
 
     </LinearLayout>
 
