@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".foodTracking">
+
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="168dp"
+        android:layout_height="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:text="Date"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/totalCaloriesText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/breakfastListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/dateTextView"
+        app:layout_constraintBottom_toTopOf="@+id/addBreakfastButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/breakfastCaloriesText">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/lunchListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/breakfastListView"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toTopOf="@+id/addLunchButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lunchText">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/dinnerListView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/lunchListView"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/addDinnerButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dinnerText" />
+
+    <Button
+        android:id="@+id/addBreakfastButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/breakfastListView"
+        android:layout_marginBottom="17dp"
+        android:text="Add Breakfast"
+        app:layout_constraintBottom_toTopOf="@+id/lunchText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/breakfastListView" />
+
+    <Button
+        android:id="@+id/addLunchButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/lunchListView"
+        android:layout_marginBottom="10dp"
+        android:text="Add Lunch"
+        app:layout_constraintBottom_toTopOf="@+id/dinnerText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lunchListView" />
+
+    <Button
+        android:id="@+id/addDinnerButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/dinnerListView"
+        android:layout_marginBottom="51dp"
+        android:text="Add Dinner"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dinnerListView" />
+
+    <TextView
+        android:id="@+id/dinnerText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="223dp"
+        android:layout_marginBottom="7dp"
+        android:text="Dinner"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/dinnerListView"
+        app:layout_constraintEnd_toStartOf="@+id/dinnerCaloriesText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addLunchButton" />
+
+    <TextView
+        android:id="@+id/lunchText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="231dp"
+        android:layout_marginBottom="9dp"
+        android:text="Lunch"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/lunchListView"
+        app:layout_constraintEnd_toStartOf="@+id/lunchCaloriesText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addBreakfastButton" />
+
+    <TextView
+        android:id="@+id/breakfastText"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="192dp"
+        android:layout_marginBottom="16dp"
+        android:text="Breakfast"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/breakfastListView"
+        app:layout_constraintEnd_toStartOf="@+id/breakfastCaloriesText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+    <TextView
+        android:id="@+id/breakfastCaloriesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/breakfastListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/breakfastText"
+        app:layout_constraintTop_toBottomOf="@+id/totalCaloriesText" />
+
+    <TextView
+        android:id="@+id/lunchCaloriesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="48dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/lunchListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/lunchText" />
+
+    <TextView
+        android:id="@+id/dinnerCaloriesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="48dp"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/dinnerListView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dinnerText" />
+
+    <TextView
+        android:id="@+id/totalCaloriesText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/breakfastCaloriesText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
