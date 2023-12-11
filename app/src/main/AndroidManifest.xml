@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZoomFoods">
         <activity
+            android:name=".foodTracking"
+            android:parentActivityName=".DashboardActivity"
+            android:exported="false" />
+        <activity
             android:name=".ReminderActivity"
             android:parentActivityName=".ActivityWater"
             android:exported="false" />

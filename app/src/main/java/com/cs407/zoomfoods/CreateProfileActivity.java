@@ -51,7 +51,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     }
 
     public void showProfileActivity() {
-        Intent viewProfileIntent = new Intent(CreateProfileActivity.this, DisplayProfileActivity.class);
+        Intent viewProfileIntent = new Intent(CreateProfileActivity.this, DashboardActivity.class);
         viewProfileIntent.putExtra(Constants.USER_ID, userId);
         startActivity(viewProfileIntent);
     }

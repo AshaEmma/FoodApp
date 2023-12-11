@@ -68,7 +68,8 @@ public class DisplayProfileActivity extends AppCompatActivity {
     }
 
     public void openWaterActivity(){
-        //TODO: navigate to water activity
+        Intent viewProfileIntent = new Intent(DisplayProfileActivity.this, ActivityWater.class);
+        startActivity(viewProfileIntent);
     }
 
 
@@ -91,10 +92,7 @@ public class DisplayProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int itemId = item.getItemId();
-        if(itemId == R.id.dashboard){
-            Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
-            return true;
-        }else if(itemId == R.id.profile){
+        if(itemId == R.id.profile){
             //openCreateProfileActivity();
             return true;
 
