@@ -63,7 +63,7 @@ public class DashboardActivity extends AppCompatActivity {
     }
 
     public void openCreateProfileActivity(){
-        Intent viewProfileIntent = new Intent(DashboardActivity.this, CreateProfileActivity.class);
+        Intent viewProfileIntent = new Intent(DashboardActivity.this, DisplayProfileActivity.class);
         startActivity(viewProfileIntent);
     }
 
@@ -100,25 +100,7 @@ public class DashboardActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if(itemId == R.id.profile){
             Toast.makeText(this, "Item 1 selected", Toast.LENGTH_SHORT).show();
-            return true;
-        }else if(itemId == R.id.viewProfile){
-            openDisplayProfileActivity();
-            return true;
-        } else if(itemId == R.id.updateProfile){
-            Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
             openCreateProfileActivity();
-            return true;
-        }else if (itemId == R.id.waterIntake){
-            Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
-            openWaterActivity();
-            return true;
-        }else if (itemId == R.id.fridge){
-            Toast.makeText(this, "Sub item 1 selected", Toast.LENGTH_SHORT).show();
-            openFridgeActivity();
-            return true;
-        }else if(itemId == R.id.foodRecord){
-            Toast.makeText(this, "Sub item 2 selected", Toast.LENGTH_SHORT).show();
-            openFoodActivity();
             return true;
         }
         else if(itemId == R.id.logout){

@@ -16,7 +16,7 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/layout_text"
+        app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/toolbar_style" />
 
     <LinearLayout
@@ -29,32 +29,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/my_toolbar"
+        android:layout_marginTop="10dp">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="40sp"
-    android:orientation="horizontal"
-    android:layout_marginTop="60sp">
-    <Button
-        android:id="@+id/btnLogoutFromProfile"
-        android:layout_width="90sp"
-        android:layout_height="40sp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="310sp"
-        android:layout_marginEnd="20sp"
-        android:hint="@string/log_out"
-        android:text="@string/log_out"
-        app:backgroundTint="@null"
-        android:background="@drawable/btn_shape5"
-        android:fontFamily="@font/amaranth"
-        android:textSize="11sp"
-        tools:ignore="TouchTargetSizeCheck"
-        android:layout_marginTop="5dp">
 
-    </Button>
-
-</LinearLayout>
         <TextView
             android:id="@+id/Welcome_Back"
             android:layout_width="300sp"
@@ -66,7 +44,8 @@
             android:textAlignment="center"
             android:textColor="@color/shadeDeepGreyBlue"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/name"

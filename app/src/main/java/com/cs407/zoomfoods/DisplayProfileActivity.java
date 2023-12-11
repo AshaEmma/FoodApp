@@ -2,6 +2,7 @@ package com.cs407.zoomfoods;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.cs407.zoomfoods.utils.Constants;
 import java.util.concurrent.ExecutionException;
 
 public class DisplayProfileActivity extends AppCompatActivity {
-
+    Toolbar toolbar;
     TextView customerName;
     TextView birthdate;
     TextView email;
@@ -39,12 +40,15 @@ public class DisplayProfileActivity extends AppCompatActivity {
         checkLoggedIn();
 
         FoodAppDatabase db = DBService.getAppDatabase();
-
+        //initialize views
         customerName = findViewById(R.id.name);
         birthdate = findViewById(R.id.DOB);
         email = findViewById(R.id.emailAddress);
-        logout = findViewById(R.id.btnLogoutFromProfile);
-
+        toolbar = findViewById(R.id.my_toolbar);
+        //set support Toolbar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         try{
             UserProfile profile = db.userProfileDao().findByUserId(userId).get();
@@ -85,39 +89,18 @@ public class DisplayProfileActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.toolbar_menu, menu);
+        inflater.inflate(R.menu.toolbar_for_display_profile, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int itemId = item.getItemId();
-        if(itemId == R.id.profile){
-            //openCreateProfileActivity();
+        if(itemId == R.id.updateProfile){
+            openCreateProfileActivity();
             return true;
-
-        } else if(itemId == R.id.viewProfile){
-            Toast.makeText(this, "Item 2 selected", Toast.LENGTH_SHORT).show();
-            //openDashboardActivity();
-
-            return true;
-        }else if (itemId == R.id.updateProfile){
-            Toast.makeText(this, "Item 3 selected", Toast.LENGTH_SHORT).show();
-            //openWaterActivity();
-            return true;
-        }else if (itemId == R.id.waterIntake){
-            Toast.makeText(this, "Sub item 1 selected", Toast.LENGTH_SHORT).show();
-            //openFridgeActivity();
-            return true;
-        }else if(itemId == R.id.fridge){
-            Toast.makeText(this, "Sub item 2 selected", Toast.LENGTH_SHORT).show();
-            //openFoodActivity();
-            return true;
-        }else if(itemId == R.id.foodRecord){
-            Toast.makeText(this, "Sub item 2 selected", Toast.LENGTH_SHORT).show();
-            //openFoodActivity();
-            return true;
-        }else if(itemId == R.id.logout){
+        }
+        else if(itemId == R.id.logout){
             Toast.makeText(this, "Sub item 2 selected", Toast.LENGTH_SHORT).show();
             //openFoodActivity();
             return true;

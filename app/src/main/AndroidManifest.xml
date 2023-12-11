@@ -33,12 +33,14 @@
             android:exported="false" />
         <activity
             android:name=".DisplayProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".DashboardActivity"/>
         <activity
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity
             android:name=".CreateProfileActivity"
+            android:parentActivityName=".DisplayProfileActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"

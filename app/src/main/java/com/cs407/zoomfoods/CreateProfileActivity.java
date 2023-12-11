@@ -2,10 +2,13 @@ package com.cs407.zoomfoods;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     TextView birthdate;
     TextView email;
     Button confirm;
+    Toolbar toolbar;
     private FoodAppDatabase db;
 
     long userId;
@@ -46,6 +50,11 @@ public class CreateProfileActivity extends AppCompatActivity {
         birthdate = findViewById(R.id.txtDOB);
         email = findViewById(R.id.txtEmail);
         confirm = findViewById(R.id.btnEditProfileSubmit);
+        toolbar = findViewById(R.id.my_toolbar);
+        // set support Toolbar
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         confirm.setOnClickListener(this::onProfileSaved);
     }
@@ -112,5 +121,12 @@ public class CreateProfileActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_for_creating_profile, menu);
+        return true;
     }
 }
