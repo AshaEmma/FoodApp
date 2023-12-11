@@ -30,6 +30,15 @@
             android:name=".CalendarView"
             android:exported="false" />
         <activity
+            android:name=".foodDetails"
+            android:exported="false" />
+        <activity
+            android:name=".foodSearch"
+            android:exported="false" />
+        <activity
+            android:name=".foodTracking"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
