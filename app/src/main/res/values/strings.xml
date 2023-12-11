@@ -4,4 +4,13 @@
     <string name="unit_prompt">Select a Unit</string>
     <string name="fridge_item">Fridge Item</string>
     <string name="food_icon">Food Icon</string>
+    <string name="product_name">Product Name</string>
+    <string name="Fridge">Fridge</string>
+    <string name="Freezer">Freezer</string>
+    <string name="Quantity">Quantity</string>
+    <string name="set_expiry_date">Set Expiry Date</string>
+    <string name="save">Save</string>
+    <string name="back_to_fridge">Back to Fridge</string>
+
+
 </resources>
