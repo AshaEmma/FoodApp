@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -23,7 +23,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.cs407.zoomfoods.R.layout;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import com.cs407.zoomfoods.R;
 public class WaterAdd extends AppCompatActivity {
     private static final String databaseName = "Zoom Foods Database";
     private String username = "username1";
@@ -113,7 +113,7 @@ public class WaterAdd extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(layout.add_water);
+        this.setContentView(layout.activity_water_add);
         // find view
         initializeView();
         // toolbar

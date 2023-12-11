@@ -141,7 +141,7 @@
                     android:layout_marginLeft="25dp"
                     />
 
-                <com.cs407.zoomfoods.utils.NonScrollListView
+                <com.cs407.zoomfoods.NonScrollListView
                     android:id = "@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

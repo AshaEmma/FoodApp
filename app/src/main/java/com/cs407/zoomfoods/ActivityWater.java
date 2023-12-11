@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -35,7 +35,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 //import com.cs407.zoomfoods.databinding.ActivityReminderBinding;
 import com.cs407.zoomfoods.R;
 import com.cs407.zoomfoods.databinding.ActivityWaterBinding;
@@ -122,7 +121,10 @@ public class ActivityWater extends AppCompatActivity {
         initializeViews();
         // Ask for permission for notification
         requestPermission();
+        // Set up tool bar
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         // create notification channel
         createNotificationchannel();
         // database

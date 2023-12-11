@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 public interface SelectListener {
     void onItemClicked(ReminderItem reminderItem, int position);

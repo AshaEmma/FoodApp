@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 import android.content.Context;
 import android.database.Cursor;

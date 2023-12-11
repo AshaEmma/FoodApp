@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 public class ReminderItem {
     private String time;

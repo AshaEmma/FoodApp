@@ -49,7 +49,8 @@
         android:background="@drawable/btn_shape5"
         android:fontFamily="@font/amaranth"
         android:textSize="11sp"
-        tools:ignore="TouchTargetSizeCheck">
+        tools:ignore="TouchTargetSizeCheck"
+        android:layout_marginTop="5dp">
 
     </Button>
 

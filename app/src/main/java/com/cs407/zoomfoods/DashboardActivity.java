@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.cs407.zoomfoods.services.UserSessionService;
+import com.cs407.zoomfoods.ActivityWater;
 
 public class DashboardActivity extends AppCompatActivity {
 
@@ -68,7 +69,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void openWaterActivity(){
         //TODO: navigate to water activity
-        //Intent waterActivity = new Intent(DashboardActivity.this, );
+        Intent foodActivity = new Intent(DashboardActivity.this, ActivityWater.class);
+        startActivity(foodActivity);
     }
 
 

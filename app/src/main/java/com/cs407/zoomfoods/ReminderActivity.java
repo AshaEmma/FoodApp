@@ -1,4 +1,4 @@
-package com.cs407.zoomfoods.utils;
+package com.cs407.zoomfoods;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -33,6 +33,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import com.cs407.zoomfoods.R;
 
 public class ReminderActivity extends AppCompatActivity implements SelectListener{
     private static final String databaseName = "Zoom Foods Database";
