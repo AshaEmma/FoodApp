@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.EditText;
 
+import com.cs407.zoomfoods.services.UserSessionService;
+
 import java.util.Date;
 
 public class foodDetails extends AppCompatActivity {
@@ -33,11 +35,16 @@ public class foodDetails extends AppCompatActivity {
     private String meal;
     private double grams;
     private String formattedDate;
+    private long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fooddetails);
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
+
         Button submitButton = findViewById(R.id.submitButton);
         Button editButton = findViewById(R.id.editButton);
         Button deleteButton = findViewById(R.id.deleteButton);
@@ -130,7 +137,7 @@ public class foodDetails extends AppCompatActivity {
                 Context context = getApplicationContext();
                 SQLiteDatabase db = context.openOrCreateDatabase("Zoom Foods Database", Context.MODE_PRIVATE, null);
                 foodLogTable log = new foodLogTable(db);
-                log.deleteFood(Login.userId, formattedDate, meal, itemName);
+                log.deleteFood((int) userId, formattedDate, meal, itemName);
 
                 Intent intent = new Intent(foodDetails.this, foodTracking.class);
                 startActivity(intent);
@@ -138,13 +145,13 @@ public class foodDetails extends AppCompatActivity {
         });
     }
 
-    public void submitGrams(View view) {
+    private void submitGrams(View view) {
         Context context = getApplicationContext();
         SQLiteDatabase db = context.openOrCreateDatabase("Zoom Foods Database", Context.MODE_PRIVATE, null);
         foodLogTable log = new foodLogTable(db);
         log.createTable(context);
 
-        log.addFood(Login.userId, formattedDate, meal, itemName, grams, Double.parseDouble(calories) * grams, Double.parseDouble(protein) * grams,
+        log.addFood((int) userId, formattedDate, meal, itemName, grams, Double.parseDouble(calories) * grams, Double.parseDouble(protein) * grams,
                 Double.parseDouble(carbs) * grams, Double.parseDouble(fat) * grams, Double.parseDouble(sodium) * grams, Double.parseDouble(potassium) * grams);
         db.close();
 
@@ -152,7 +159,7 @@ public class foodDetails extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void changeText() {
+    private void changeText() {
         TextView mealText = findViewById(R.id.meal_TextView);
         TextView caloriesText = findViewById(R.id.calories_TextView);
         TextView proteinText = findViewById(R.id.protein_TextView);
@@ -176,5 +183,13 @@ public class foodDetails extends AppCompatActivity {
         fatText.setText(fatString);
         sodiumText.setText(sodiumString);
         potassiumText.setText(potassiumString);
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
