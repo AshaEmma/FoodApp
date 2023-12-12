@@ -154,6 +154,8 @@ public class ActivityWater extends AppCompatActivity {
         refreshWaterLogList();
         // set default alarm
         setDefaultAfterTwoHour();
+        // set morning alarm
+        setDefaultAlarm();
         // ListView onClickListener
         Context context = getApplicationContext();
         recordsListView.setOnItemClickListener((parent, view, position, id) -> {
@@ -403,5 +405,12 @@ public class ActivityWater extends AppCompatActivity {
             setAlarm(-2, toSetHour, lastLatestMin); // set the alarm
             Log.i("Information", "From ActivityWater, the latestDrinkTime: " + lastDrinkTime);
         }
+    }
+
+    private void setDefaultAlarm(){
+        // Set Default notification in every day (drink type)
+        int DefaultMorningHour = 0;
+        int DefaultMorningMin= 8;
+        setAlarm(-1, DefaultMorningHour, DefaultMorningMin);
     }
 }

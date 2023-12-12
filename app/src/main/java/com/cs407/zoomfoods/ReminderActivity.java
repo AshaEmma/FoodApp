@@ -256,7 +256,7 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
     }
 
     private void setDefaultAlarm(){
-        // Set Default notification in every day (drink typ)
+        // Set Default notification in every day (drink type)
         int DefaultMorningHour = 8;
         int DefaultMorningMin= 0;
         setAlarm(-1, DefaultMorningHour, DefaultMorningMin);
