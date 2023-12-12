@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import com.cs407.zoomfoods.services.UserSessionService;
 import com.cs407.zoomfoods.utils.Constants;
 
 public class foodTracking extends AppCompatActivity {
@@ -27,11 +29,15 @@ public class foodTracking extends AppCompatActivity {
     private Button addBreakfastButton, addLunchButton, addDinnerButton;
     private TextView dateTextView, breakfastCaloriesText, lunchCaloriesText, dinnerCaloriesText;
     private double totalCalories = 0;
+    private long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_foodtracking);
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
         Calendar calendar = Calendar.getInstance();
         Date date = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
@@ -99,7 +105,7 @@ public class foodTracking extends AppCompatActivity {
         db = context.openOrCreateDatabase("Zoom Foods Database", Context.MODE_PRIVATE, null);
         foodLogTable logTable = new foodLogTable(db);
         logTable.createTable(context);
-        Cursor cursor = logTable.getMealFoods(Integer.parseInt(Constants.USER_ID), date, meal);
+        Cursor cursor = logTable.getMealFoods((int) userId, date, meal);
 
         double mealCalories = 0;
         if (cursor != null && cursor.moveToFirst()) {
@@ -141,7 +147,7 @@ public class foodTracking extends AppCompatActivity {
         logTable.createTable(context);
         Intent intent = new Intent(foodTracking.this, foodDetails.class);
         intent.putExtra("itemName", name);
-        Cursor cursor = dbHelper.rawQuery("SELECT * FROM foodLog WHERE user_id=? AND date=? AND meal=?", new String[]{"2", date, meal});
+        Cursor cursor = dbHelper.rawQuery("SELECT * FROM foodLog WHERE user_id=? AND date=? AND meal=?", new String[]{String.valueOf(userId), date, meal});
         while (cursor.moveToNext()) {
             intent.putExtra("calories", cursor.getString(cursor.getColumnIndex("calories")));
             intent.putExtra("protein", cursor.getString(cursor.getColumnIndex("protein")));
@@ -159,4 +165,11 @@ public class foodTracking extends AppCompatActivity {
         startActivity(intent);
     }
 
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 }
