@@ -33,6 +33,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -135,11 +136,11 @@ public class ActivityWater extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWaterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        // Get service
         UserSessionService userSessionService = UserSessionService.getInstance();
         userId = userSessionService.getUserId();
         checkLoggedIn();
         db = DBService.getAppDatabase();
-
         initializeViews();
         // Ask for permission for notification
         requestPermission();
@@ -149,11 +150,12 @@ public class ActivityWater extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // create notification channel
         createNotificationchannel();
-        Context context = getApplicationContext();
         // readRecords
         refreshWaterLogList();
-
+        // set default alarm
+        setDefaultAfterTwoHour();
         // ListView onClickListener
+        Context context = getApplicationContext();
         recordsListView.setOnItemClickListener((parent, view, position, id) -> {
             WaterLog selected_item = (WaterLog) parent.getItemAtPosition(position);
             Intent intent = new Intent(context, WaterAddActivity.class);
@@ -176,9 +178,10 @@ public class ActivityWater extends AppCompatActivity {
         quickAdd.setOnClickListener(v -> {
             if(selectedAmountButton != null && selectedTypeDrinkButton != null){
                 String currentTime = getCurrentTime();
+                // Get the title and amount
                 String title = selectedTypeDrinkButton.getText().toString();
                 String amount = selectedAmountButton.getText().toString().split(" ")[0];
-
+                // add new waterLog
                 WaterLog waterLog = new WaterLog();
                 waterLog.userId = userId;
                 waterLog.time = currentTime;
@@ -189,9 +192,7 @@ public class ActivityWater extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("WATER_ADD", "Error saving water log", e);
                 }
-
                 refreshWaterLogList();
-
                 // update the clicked buttons
                 selectedTypeDrinkButton.setBackground(getResources().getDrawable(R.drawable.typedrink_btn_bg));
                 selectedAmountButton.setBackground(getResources().getDrawable(R.drawable.btn_bg));
@@ -199,13 +200,10 @@ public class ActivityWater extends AppCompatActivity {
                 selectedAmountButton = null;
                 //update progress bar
                 current_total += Double.parseDouble(amount);
-
                 int total = Math.min((int) current_total, 69);
-
                 current_progress = Math.min((int) ((current_total/69.00)*100), 100);
-
                 int remain = 69 - total;
-
+                //set progress bar
                 progressBar.setProgress(current_progress);
                 progressText.setText(current_progress+"%");
                 intake.setText(((int) current_total)+" fl oz");
@@ -213,15 +211,14 @@ public class ActivityWater extends AppCompatActivity {
                 // Update SharedPreferences for current_total
                 SharedPreferences sharedPreferences = getSharedPreferences("HydrationReminder", MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                // Convert the double to its 'raw long bits' equivalent and store that long.
-                // When you're reading the value, convert back to double.
-                Log.i("Information", "Current total: " + total  + "-" + current_total);
+                //Log.i("Information", "Current total: " + total  + "-" + current_total);
                 editor.putInt(sharedkey, total);
                 boolean isCommitSuccessful = editor.commit();
                 if (!isCommitSuccessful){
                     Log.i("Information", "Commit failed!!!");
                 }
-
+                // Check latestTime and set alarm to 2 hours after that
+                setDefaultAfterTwoHour();
             }
             else if (selectedAmountButton == null){
                 Toast.makeText(ActivityWater.this, "Please select the amount of your drink", Toast.LENGTH_LONG).show();
@@ -242,7 +239,6 @@ public class ActivityWater extends AppCompatActivity {
             current_total += Double.parseDouble(waterLogItem.getAmount());
         }
         int total = Math.min((int) current_total, 69);
-
         current_progress = Math.min((int) ((current_total/69.00)*100), 100);
         int remain = 69 - total;
         progressBar.setProgress(current_progress);
@@ -355,7 +351,7 @@ public class ActivityWater extends AppCompatActivity {
         }
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
         Toast.makeText(this,"Reminder set successfully", Toast.LENGTH_LONG).show();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Log.i("Information", "Build version is larger");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager != null && !alarmManager.canScheduleExactAlarms()){
                 Log.i("Information", "Cannot set exact alarm");
@@ -365,5 +361,47 @@ public class ActivityWater extends AppCompatActivity {
             alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
         Log.i("Information", "Alarmed being set at " + selectedHour + ":" + selectedMins);
+    }
+
+    private ArrayList<String> findLatestDrinkTime(){
+        LocalTime currentLatestTime = LocalTime.parse("00:00");
+        String checked = "0";
+        for(WaterLog waterLogItem : waterLogItems){
+            String timeItem = waterLogItem.getTime().replace(" ", "");
+            if(LocalTime.parse(timeItem).isAfter(currentLatestTime)){
+                currentLatestTime = LocalTime.parse(timeItem);
+                checked = "1";
+            }
+        }
+        ArrayList<String> res = new ArrayList<>();
+        res.add(currentLatestTime.toString());
+        res.add(checked);
+        return res;
+    }
+
+    private void cancelAlarm(int idReminderCode){
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("ReminderID", idReminderCode);
+        pendingIntent = PendingIntent.getBroadcast(this, idReminderCode, intent, PendingIntent.FLAG_MUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        if (alarmManager == null){
+            alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        }
+        alarmManager.cancel(pendingIntent);
+        Toast.makeText(this, "Alarm Cancelled", Toast.LENGTH_LONG).show();
+    }
+
+    private void setDefaultAfterTwoHour() {
+        ArrayList<String> lastDrinkTimeList = findLatestDrinkTime();
+        String lastDrinkTime = lastDrinkTimeList.get(0);
+        String checked = lastDrinkTimeList.get(1);
+        if (checked == "1") {
+            Integer lastLatestHour = Integer.parseInt(lastDrinkTime.split(":")[0].trim());
+            Integer lastLatestMin = Integer.parseInt(lastDrinkTime.split(":")[1].trim());
+            Integer toSetHour = lastLatestHour + 2; // if the time is later than 22:00, the alarm needs to set it to the following day
+            if (toSetHour > 23) toSetHour = toSetHour - 24;
+            cancelAlarm(-2);
+            setAlarm(-2, toSetHour, lastLatestMin); // set the alarm
+            Log.i("Information", "From ActivityWater, the latestDrinkTime: " + lastDrinkTime);
+        }
     }
 }

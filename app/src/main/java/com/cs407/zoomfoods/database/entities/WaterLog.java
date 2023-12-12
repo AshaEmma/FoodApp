@@ -43,4 +43,5 @@ public class WaterLog {
     public String getTitle() {
         return title;
     }
+
 }
