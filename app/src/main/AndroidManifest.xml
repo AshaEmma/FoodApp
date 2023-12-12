@@ -24,7 +24,7 @@
             android:parentActivityName=".ActivityWater"
             android:exported="false" />
         <activity
-            android:name=".WaterAdd"
+            android:name=".WaterAddActivity"
             android:parentActivityName=".ActivityWater"
             android:exported="false" />
         <activity

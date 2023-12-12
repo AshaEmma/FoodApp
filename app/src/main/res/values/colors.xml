@@ -40,4 +40,5 @@
     <color name="holo_green_light">#FF99CC00</color>
     <color name="holo_red_light">#FFFF4444</color>
     <color name="sixty_opacity_white">#8CFFFFFF</color>
+    <color name="clicked_btn_color">#185167</color>
 </resources>

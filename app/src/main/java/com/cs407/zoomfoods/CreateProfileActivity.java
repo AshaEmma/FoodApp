@@ -53,7 +53,7 @@ public class CreateProfileActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.my_toolbar);
         // set support Toolbar
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         confirm.setOnClickListener(this::onProfileSaved);

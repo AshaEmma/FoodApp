@@ -1,6 +1,5 @@
 package com.cs407.zoomfoods;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
-import com.cs407.zoomfoods.R;
+
+import com.cs407.zoomfoods.database.entities.ReminderItem;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder>{
 

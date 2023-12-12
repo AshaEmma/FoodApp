@@ -1,69 +1,51 @@
 package com.cs407.zoomfoods;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
-import java.util.ArrayList;
+import com.cs407.zoomfoods.database.FoodAppDatabase;
+import com.cs407.zoomfoods.database.entities.ReminderItem;
+
+import java.util.List;
 
 public class ReminderDBHelper {
-    static SQLiteDatabase sqLiteDatabase;
-    public ReminderDBHelper(SQLiteDatabase sqLiteDatabase) {this.sqLiteDatabase = sqLiteDatabase;}
+    FoodAppDatabase db;
 
-    public static void createTable(){
-        sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS reminders " +
-                "(id INTEGER PRIMARY KEY, username TEXT, time TEXT, isActive INTEGER)");
-    }
+    public ReminderDBHelper(FoodAppDatabase db) {this.db = db;}
 
-    public ArrayList<ReminderItem> readReminder(String username){
-        createTable();
-        Cursor c = sqLiteDatabase.rawQuery("SELECT * FROM reminders WHERE username=?", new String[]{username});
+    public List<ReminderItem> readReminder(long userId){
         try{
-            int timeIndex = c.getColumnIndex("time");
-            int idIndex = c.getColumnIndex("id");
-            int activeIndex = c.getColumnIndex("isActive");
-
-            c.moveToFirst();
-            ArrayList<ReminderItem> ReminderItemList = new ArrayList<>();
-            while(!c.isAfterLast()){
-                int id = c.getInt(idIndex);
-                String time = c.getString(timeIndex);
-                boolean isActive = c.getInt(activeIndex) != 0;
-                ReminderItem item = new ReminderItem(time, isActive, id);
-                ReminderItemList.add(item);
-                c.moveToNext();
-            }
-            return ReminderItemList;
+            return db.reminderItemDao().findAllByUserId(userId).get();
+        } catch (Exception e){
+            Log.e("REMINDERS", "Error fetching reminders for user", e);
+            throw new RuntimeException(e);
         }
-        finally {
-            if(c != null){
-                c.close();
-            }
+    }
+
+    public void saveReminder(long userId, String time, boolean isActive){
+        try{
+            ReminderItem item = new ReminderItem(userId, time, isActive);
+            db.reminderItemDao().insertAll(item).get();
+        } catch (Exception e){
+            Log.e("REMINDERS", "Error saving reminder for user", e);
+            throw new RuntimeException(e);
         }
-
-
     }
 
-    public void saveReminder(String username, String time, boolean isActive){
-        createTable();
-        int checkActive;
-        if (isActive) checkActive = 1;
-        else checkActive = 0;
-        sqLiteDatabase.execSQL("INSERT INTO reminders (username, time, isActive) VALUES (?,?,?)",
-                new String[]{username, time, String.valueOf(checkActive)});
+    public void updateReminder(ReminderItem item ){
+        try{
+            db.reminderItemDao().updateItem(item).get();
+        } catch (Exception e){
+            Log.e("REMINDERS", "Error updating reminder for user", e);
+            throw new RuntimeException(e);
+        }
     }
 
-    public void updateReminder(String username, String time, boolean isActive, int id){
-        createTable();
-        int checkActive;
-        if (isActive) checkActive = 1;
-        else checkActive = 0;
-        sqLiteDatabase.execSQL("UPDATE reminders set time=?, isActive=? where username=? and id=?",
-                new String[]{time, String.valueOf(checkActive), username, String.valueOf(id)});
-    }
-
-    public void deleteReminder(String username, int id){
-        createTable();
-        sqLiteDatabase.execSQL("DELETE FROM reminders where username =? and id=?",
-                new String[]{username, String.valueOf(id)});
+    public void deleteReminder(ReminderItem item){
+        try{
+            db.reminderItemDao().delete(item).get();
+        } catch (Exception e){
+            Log.e("REMINDERS", "Error deleting reminder for user", e);
+            throw new RuntimeException(e);
+        }
     }
 }

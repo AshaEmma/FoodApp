@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_over"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -129,7 +130,7 @@
                     android:layout_marginTop="5dp"
                     />
                 <TextView
-                    android:id = "@+id/record"
+                    android:id = "@+id/waterLogItem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Today's record"
@@ -145,7 +146,7 @@
                     android:id = "@+id/recyclerview"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/record"
+                    app:layout_constraintTop_toBottomOf="@id/waterLogItem"
                     app:layout_constraintStart_toStartOf="parent"
                     android:paddingHorizontal="16dp"
                     />
@@ -188,12 +189,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5 fl oz"
+                    app:backgroundTint="@null"
                     android:background="@drawable/btn_bg"
                     android:layout_marginLeft="20dp"
                     app:layout_constraintEnd_toStartOf="@id/add_button2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/amount"
                     android:layout_marginTop="10dp"
+
                     />
 
                 <Button
@@ -201,6 +204,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10 fl oz"
+                    app:backgroundTint="@null"
                     android:background="@drawable/btn_bg"
                     app:layout_constraintEnd_toStartOf="@id/add_button3"
                     app:layout_constraintStart_toEndOf="@id/add_button1"
@@ -214,6 +218,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15 fl oz"
+                    app:backgroundTint="@null"
                     android:background="@drawable/btn_bg"
                     app:layout_constraintEnd_toStartOf="@id/add_button4"
                     app:layout_constraintStart_toEndOf="@id/add_button2"
@@ -228,6 +233,7 @@
                     android:text="20 fl oz"
                     android:background="@drawable/btn_bg"
                     android:layout_marginRight="20dp"
+                    app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/add_button3"
                     app:layout_constraintTop_toBottomOf="@id/amount"
@@ -254,6 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    app:backgroundTint="@null"
                     android:background="@drawable/typedrink_btn_bg"
                     android:text="Tea"
                     app:layout_constraintEnd_toStartOf="@id/type_drink2"
@@ -267,6 +274,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/typedrink_btn_bg"
                     android:text="Coffee"
+                    app:backgroundTint="@null"
                     app:layout_constraintEnd_toStartOf="@id/type_drink3"
                     app:layout_constraintStart_toEndOf="@id/type_drink1"
                     app:layout_constraintTop_toBottomOf="@+id/type" />
@@ -279,6 +287,7 @@
                     android:layout_marginRight="10dp"
                     android:background="@drawable/typedrink_btn_bg"
                     android:text="Milk"
+                    app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/type_drink2"
                     app:layout_constraintTop_toBottomOf="@+id/type" />
@@ -291,6 +300,7 @@
                     android:background="@drawable/typedrink_btn_bg"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    app:backgroundTint="@null"
                     app:layout_constraintEnd_toStartOf="@id/type_drink6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/type_drink1"/>
@@ -300,6 +310,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Coke"
+                    app:backgroundTint="@null"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/typedrink_btn_bg"
                     app:layout_constraintEnd_toStartOf="@id/type_drink7"
@@ -313,6 +324,7 @@
                     android:text="Beer"
                     android:background="@drawable/typedrink_btn_bg"
                     android:layout_marginRight="10dp"
+                    app:backgroundTint="@null"
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/type_drink6"
@@ -325,6 +337,7 @@
                     android:text= "add drink"
                     android:background="#FF0C2F3C"
                     android:textColor="@color/white"
+                    app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/type_drink6"

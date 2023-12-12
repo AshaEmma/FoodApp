@@ -23,21 +23,21 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import com.cs407.zoomfoods.R;
+import java.util.List;
+
+import com.cs407.zoomfoods.database.DBService;
+import com.cs407.zoomfoods.database.FoodAppDatabase;
+import com.cs407.zoomfoods.database.entities.ReminderItem;
+import com.cs407.zoomfoods.services.UserSessionService;
 
 public class ReminderActivity extends AppCompatActivity implements SelectListener{
-    private static final String databaseName = "Zoom Foods Database";
-    private String username = "username1";
     private Toolbar toolbar;
     private RecyclerView ReminderRecyclerView;
     private ReminderAdapter reminderAdapter;
@@ -45,8 +45,10 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
     private ImageView addReminderBtn;
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
+    long userId;
+    private FoodAppDatabase db;
 
-    private ArrayList<ReminderItem> reminderItemArrayList;
+    private List<ReminderItem> reminderItemArrayList;
 
     private void initializeViews(){
         toolbar = findViewById(R.id.toolbar_activity_reminder);
@@ -55,7 +57,7 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
     }
 
     private void loadReminders(){
-        reminderItemArrayList = reminderDBHelper.readReminder(username);
+        reminderItemArrayList = reminderDBHelper.readReminder(userId);
         //Log.i("Information", "size of list: " + reminderItemArrayList.size());
         //reminderAdapter
         reminderAdapter = new ReminderAdapter(reminderItemArrayList, this);
@@ -71,22 +73,22 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reminder);
+
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
+        db = DBService.getAppDatabase();
+
         initializeViews();
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         ReminderRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         //Database
-        Context context = getApplicationContext();
-        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase(databaseName, Context.MODE_PRIVATE, null);
-        reminderDBHelper = new ReminderDBHelper(sqLiteDatabase);
+        reminderDBHelper = new ReminderDBHelper(db);
+
         loadReminders();
-        addReminderBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openDialog(null,-1);
-            }
-        });
+        addReminderBtn.setOnClickListener(v -> openDialog(null,-1));
     }
 
     @Override
@@ -135,15 +137,16 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
                 // add to database
                 if(position == -1){
                     // reminderItem is currently null, since we add another reminder
-                    reminderDBHelper.saveReminder(username, final_time, true);
-                    ArrayList<ReminderItem> newReminderList = reminderDBHelper.readReminder(username);
+                    reminderDBHelper.saveReminder(userId, final_time, true);
+                    List<ReminderItem> newReminderList = reminderDBHelper.readReminder(userId);
                     ReminderItem lastReminder = newReminderList.get(newReminderList.size()-1);
                     setAlarm(lastReminder.getId(), hourOfDay, minute);
                 }
                 else{
                     // Update the exist reminder
                     cancelAlarm(reminderItem.getId());
-                    reminderDBHelper.updateReminder(username, final_time, reminderItem.getIsActive(),reminderItem.getId());
+                    reminderItem.time = final_time;
+                    reminderDBHelper.updateReminder(reminderItem);
                     setAlarm(reminderItem.getId(), hourOfDay, minute);
                 }
                 // Notify the adapter about the data changed
@@ -175,7 +178,7 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
         if (reminderItem.getIsActive()){
             cancelAlarm(reminderItem.getId());
         }
-        reminderDBHelper.updateReminder(username, reminderItem.getTime(), !reminderItem.getIsActive(),reminderItem.getId());
+        reminderDBHelper.updateReminder(reminderItem);
         loadReminders();
     }
 
@@ -195,7 +198,7 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
                 if (which == 0){
                     // Delete option
                     cancelAlarm(reminderItem.getId());
-                    reminderDBHelper.deleteReminder(username, reminderItem.getId());
+                    reminderDBHelper.deleteReminder(reminderItem);
                     loadReminders();
                 }
                 else if (which == 1){
@@ -257,5 +260,13 @@ public class ReminderActivity extends AppCompatActivity implements SelectListene
         int DefaultMorningHour = 8;
         int DefaultMorningMin= 0;
         setAlarm(-1, DefaultMorningHour, DefaultMorningMin);
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

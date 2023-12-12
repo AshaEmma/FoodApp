@@ -35,18 +35,22 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.ExecutionException;
 //import com.cs407.zoomfoods.databinding.ActivityReminderBinding;
-import com.cs407.zoomfoods.R;
+import com.cs407.zoomfoods.database.DBService;
+import com.cs407.zoomfoods.database.FoodAppDatabase;
+import com.cs407.zoomfoods.database.entities.WaterLog;
 import com.cs407.zoomfoods.databinding.ActivityWaterBinding;
+import com.cs407.zoomfoods.services.UserSessionService;
 
 public class ActivityWater extends AppCompatActivity {
-    private static final String databaseName = "Zoom Foods Database";
-    private String username = "username1";
     private double current_total = 0;
     private int current_progress = 0;
     private Button selectedAmountButton = null;
     private Button selectedTypeDrinkButton = null;
-    private String sharedkey = "TodayDrank";
+    private final String sharedkey = "TodayDrank";
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private ImageView add_btn;
@@ -61,6 +65,9 @@ public class ActivityWater extends AppCompatActivity {
     private Button quickAdd;
     private ActivityWaterBinding binding;
 
+    long userId;
+    private FoodAppDatabase db;
+
     /*
      * acts as the callback when permission is either granted or refused.
      * We send a toast if the permission is refused.
@@ -71,6 +78,8 @@ public class ActivityWater extends AppCompatActivity {
                     Toast.makeText(this, "Please allow all notifications for better user experience", Toast.LENGTH_LONG).show();
                 }
             });
+    private List<WaterLog> waterLogItems;
+
     private void amountButtonClicked(Button action_btn){
 
         //Reset the previous clicked button's color
@@ -91,6 +100,14 @@ public class ActivityWater extends AppCompatActivity {
         selectedTypeDrinkButton = action_btn;
 
         action_btn.setBackground(getResources().getDrawable(R.drawable.clicked_btn_bg));
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void initializeViews(){
@@ -118,153 +135,111 @@ public class ActivityWater extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityWaterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
+        db = DBService.getAppDatabase();
+
         initializeViews();
         // Ask for permission for notification
         requestPermission();
         // Set up tool bar
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         // create notification channel
         createNotificationchannel();
-        // database
         Context context = getApplicationContext();
-        SQLiteDatabase sqLiteDatabase = context.openOrCreateDatabase(databaseName, Context.MODE_PRIVATE, null);
-        WaterDBHelper dbHelper = new WaterDBHelper(sqLiteDatabase, context);
         // readRecords
-        ArrayList<Record> records = dbHelper.readRecords(username);
-        ArrayAdapter adapter = new CustomListAdapter(this, records);
-        recordsListView.setAdapter(adapter);
-        // ListView onClickListener
-        recordsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Record selected_item = (Record) parent.getItemAtPosition(position);
-                Intent intent = new Intent(context, WaterAdd.class);
-                Log.i("Information", "selected_item.getAmount(): " + selected_item.getAmount());
-                Log.i("Information", "selected_item.getTitle(): " + selected_item.getTitle());
-                Log.i("Information", "selected_item.getId(): " + selected_item.getId());
-                intent.putExtra("recordId", position);
-                intent.putExtra("recordIndex", selected_item.getId());
-                startActivity(intent);
-            }
-        });
-        drinkAmount1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountButtonClicked(drinkAmount1);
-            }
-        });
-        drinkAmount2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountButtonClicked(drinkAmount2);
-            }
-        });
-        drinkAmount3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountButtonClicked(drinkAmount3);
-            }
-        });
-        drinkAmount4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                amountButtonClicked(drinkAmount4);
-            }
-        });
-        drinkType1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType1);
-            }
-        });
-        drinkType2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType2);
-            }
-        });
-        drinkType3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType3);
-            }
-        });
-        drinkType5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType5);
-            }
-        });
-        drinkType6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType6);
-            }
-        });
-        drinkType7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeButtonClicked(drinkType7);
-            }
-        });
-        quickAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(selectedAmountButton != null && selectedTypeDrinkButton != null){
-                    String currentTime = getCurrentTime();
-                    String title = selectedTypeDrinkButton.getText().toString();
-                    String amount = selectedAmountButton.getText().toString().split(" ")[0];
-                    dbHelper.saveRecord(username, currentTime, amount, title);
-                    ArrayList<Record> newRecords = dbHelper.readRecords(username);
-                    ArrayAdapter adapter = new CustomListAdapter(ActivityWater.this, newRecords);
-                    recordsListView.setAdapter(adapter);
-                    // update the clicked buttons
-                    selectedTypeDrinkButton.setBackground(getResources().getDrawable(R.drawable.typedrink_btn_bg));
-                    selectedAmountButton.setBackground(getResources().getDrawable(R.drawable.btn_bg));
-                    selectedTypeDrinkButton = null;
-                    selectedAmountButton = null;
-                    //update progress bar
-                    current_total += Double.parseDouble(amount);
-                    int total = Math.min((int) current_total, 69);
-                    current_progress = Math.min((int) ((current_total/69.00)*100), 100);
-                    int remain = 69 - total;
-                    progressBar.setProgress(current_progress);
-                    progressText.setText(current_progress+"%");
-                    intake.setText(((int) current_total)+" fl oz");
-                    remaining.setText("Today I still need to drink " + remain + " oz");
-                    // Update SharedPreferences for current_total
-                    SharedPreferences sharedPreferences = getSharedPreferences("HydrationReminder", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    // Convert the double to its 'raw long bits' equivalent and store that long.
-                    // When you're reading the value, convert back to double.
-                    Log.i("Information", "Current total: " + total  + "-" + current_total);
-                    editor.putInt(sharedkey, total);
-                    boolean isCommitSuccessful = editor.commit();
-                    if (!isCommitSuccessful){
-                        Log.i("Information", "Commit failed!!!");
-                    }
+        refreshWaterLogList();
 
+        // ListView onClickListener
+        recordsListView.setOnItemClickListener((parent, view, position, id) -> {
+            WaterLog selected_item = (WaterLog) parent.getItemAtPosition(position);
+            Intent intent = new Intent(context, WaterAddActivity.class);
+            Log.i("Information", "selected_item.getAmount(): " + selected_item.getAmount());
+            Log.i("Information", "selected_item.getTitle(): " + selected_item.getTitle());
+            Log.i("Information", "selected_item.getId(): " + selected_item.getId());
+            intent.putExtra("recordId", selected_item.id);
+            startActivity(intent);
+        });
+        drinkAmount1.setOnClickListener(v -> amountButtonClicked(drinkAmount1));
+        drinkAmount2.setOnClickListener(v -> amountButtonClicked(drinkAmount2));
+        drinkAmount3.setOnClickListener(v -> amountButtonClicked(drinkAmount3));
+        drinkAmount4.setOnClickListener(v -> amountButtonClicked(drinkAmount4));
+        drinkType1.setOnClickListener(v -> typeButtonClicked(drinkType1));
+        drinkType2.setOnClickListener(v -> typeButtonClicked(drinkType2));
+        drinkType3.setOnClickListener(v -> typeButtonClicked(drinkType3));
+        drinkType5.setOnClickListener(v -> typeButtonClicked(drinkType5));
+        drinkType6.setOnClickListener(v -> typeButtonClicked(drinkType6));
+        drinkType7.setOnClickListener(v -> typeButtonClicked(drinkType7));
+        quickAdd.setOnClickListener(v -> {
+            if(selectedAmountButton != null && selectedTypeDrinkButton != null){
+                String currentTime = getCurrentTime();
+                String title = selectedTypeDrinkButton.getText().toString();
+                String amount = selectedAmountButton.getText().toString().split(" ")[0];
+
+                WaterLog waterLog = new WaterLog();
+                waterLog.userId = userId;
+                waterLog.time = currentTime;
+                waterLog.title = title;
+                waterLog.amount = amount;
+                try {
+                    db.waterLogDao().insertAll(waterLog).get();
+                } catch (Exception e) {
+                    Log.e("WATER_ADD", "Error saving water log", e);
                 }
-                else if (selectedAmountButton == null){
-                    Toast.makeText(ActivityWater.this, "Please select the amount of your drink", Toast.LENGTH_LONG).show();
+
+                refreshWaterLogList();
+
+                // update the clicked buttons
+                selectedTypeDrinkButton.setBackground(getResources().getDrawable(R.drawable.typedrink_btn_bg));
+                selectedAmountButton.setBackground(getResources().getDrawable(R.drawable.btn_bg));
+                selectedTypeDrinkButton = null;
+                selectedAmountButton = null;
+                //update progress bar
+                current_total += Double.parseDouble(amount);
+
+                int total = Math.min((int) current_total, 69);
+
+                current_progress = Math.min((int) ((current_total/69.00)*100), 100);
+
+                int remain = 69 - total;
+
+                progressBar.setProgress(current_progress);
+                progressText.setText(current_progress+"%");
+                intake.setText(((int) current_total)+" fl oz");
+                remaining.setText("Today I still need to drink " + remain + " oz");
+                // Update SharedPreferences for current_total
+                SharedPreferences sharedPreferences = getSharedPreferences("HydrationReminder", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                // Convert the double to its 'raw long bits' equivalent and store that long.
+                // When you're reading the value, convert back to double.
+                Log.i("Information", "Current total: " + total  + "-" + current_total);
+                editor.putInt(sharedkey, total);
+                boolean isCommitSuccessful = editor.commit();
+                if (!isCommitSuccessful){
+                    Log.i("Information", "Commit failed!!!");
                 }
-                else{
-                    Toast.makeText(ActivityWater.this, "Please select the type of your drink", Toast.LENGTH_LONG).show();
-                }
+
+            }
+            else if (selectedAmountButton == null){
+                Toast.makeText(ActivityWater.this, "Please select the amount of your drink", Toast.LENGTH_LONG).show();
+            }
+            else{
+                Toast.makeText(ActivityWater.this, "Please select the type of your drink", Toast.LENGTH_LONG).show();
             }
         });
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =new Intent(ActivityWater.this, WaterAdd.class);
+                Intent intent =new Intent(ActivityWater.this, WaterAddActivity.class);
                 startActivity(intent);
             }
         });
         // Progress Bar, percentage text
-        for (Record record: records){
-            current_total += Double.parseDouble(record.getAmount());
+        for (WaterLog waterLogItem : waterLogItems){
+            current_total += Double.parseDouble(waterLogItem.getAmount());
         }
         int total = Math.min((int) current_total, 69);
 
@@ -282,9 +257,19 @@ public class ActivityWater extends AppCompatActivity {
         // When you're reading the value, convert back to double.
         editor.putInt(sharedkey, total);
         boolean isCommitSuccessful = editor.commit();
-        Log.i("Information", isCommitSuccessful+"");
+        Log.i("Information", String.valueOf(isCommitSuccessful));
         if (!isCommitSuccessful){
             Log.i("Information", "Commit failed!!!");
+        }
+    }
+
+    private void refreshWaterLogList() {
+        try {
+            waterLogItems = db.waterLogDao().findAllByUserId(userId).get();
+            ArrayAdapter<WaterLog> adapter = new CustomListAdapter(this, waterLogItems);
+            recordsListView.setAdapter(adapter);
+        } catch (Exception e) {
+            Log.e("WATER_ADD", "Error fetching water log", e);
         }
     }
 
@@ -312,7 +297,7 @@ public class ActivityWater extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         int itemId = item.getItemId();
         if (itemId == R.id.main_action_add_water) {
-            Intent intent =new Intent(ActivityWater.this, WaterAdd.class);
+            Intent intent =new Intent(ActivityWater.this, WaterAddActivity.class);
             startActivity(intent);
             return true;
         }
@@ -329,8 +314,8 @@ public class ActivityWater extends AppCompatActivity {
         Calendar currentDate = Calendar.getInstance();
         int hour = currentDate.get(Calendar.HOUR_OF_DAY);
         int min = currentDate.get(Calendar.MINUTE);
-        String current_hour = ""+hour;
-        String current_min = ""+min;
+        String current_hour = String.valueOf(hour);
+        String current_min = String.valueOf(min);
         if(hour < 10) current_hour = "0"+current_hour;
         if(min < 10) current_min = "0"+current_min;
         return current_hour+" : "+current_min;
@@ -381,5 +366,4 @@ public class ActivityWater extends AppCompatActivity {
         }
         Log.i("Information", "Alarmed being set at " + selectedHour + ":" + selectedMins);
     }
-
 }

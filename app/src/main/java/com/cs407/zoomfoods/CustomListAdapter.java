@@ -1,8 +1,6 @@
 package com.cs407.zoomfoods;
 
 import android.content.Context;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,24 +10,20 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.cs407.zoomfoods.R;
+import com.cs407.zoomfoods.database.entities.WaterLog;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomListAdapter extends ArrayAdapter<Record> {
-    private Context mContext;
-    private List<Record> recordList;
-    public CustomListAdapter(@NonNull Context context,@NonNull ArrayList<Record> recordArrayList) {
-        super(context, R.layout.list_item, recordArrayList);
-        mContext = context;
-        recordList = recordArrayList;
+public class CustomListAdapter extends ArrayAdapter<WaterLog> {
+    public CustomListAdapter(@NonNull Context context,@NonNull List<WaterLog> waterLogItemArrayList) {
+        super(context, R.layout.list_item, waterLogItemArrayList);
     }
 
     @NonNull
     @Override
-    public View getView(int position, @NonNull View convertView, @NonNull ViewGroup parent){
-        Record rec = getItem(position);
+    public View getView(int position, View convertView, @NonNull ViewGroup parent){
+        WaterLog rec = getItem(position);
         if (convertView == null){
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_item, parent, false);
         }
