@@ -352,7 +352,7 @@ public class ActivityWater extends AppCompatActivity {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        Toast.makeText(this,"Reminder set successfully", Toast.LENGTH_LONG).show();
+        Log.i("Information","Reminder set successfully");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             Log.i("Information", "Build version is larger");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager != null && !alarmManager.canScheduleExactAlarms()){
@@ -389,7 +389,7 @@ public class ActivityWater extends AppCompatActivity {
             alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         }
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(this, "Alarm Cancelled", Toast.LENGTH_LONG).show();
+        Log.i( "Information","Alarm Cancelled");
     }
 
     private void setDefaultAfterTwoHour() {
@@ -409,8 +409,8 @@ public class ActivityWater extends AppCompatActivity {
 
     private void setDefaultAlarm(){
         // Set Default notification in every day (drink type)
-        int DefaultMorningHour = 0;
-        int DefaultMorningMin= 8;
+        int DefaultMorningHour = 8;
+        int DefaultMorningMin= 0;
         setAlarm(-1, DefaultMorningHour, DefaultMorningMin);
     }
 }
