@@ -2,10 +2,13 @@ package com.cs407.zoomfoods;
 
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,6 +17,7 @@ import android.widget.Toast;
 import com.cs407.zoomfoods.database.DBService;
 import com.cs407.zoomfoods.database.FoodAppDatabase;
 import com.cs407.zoomfoods.database.entities.UserProfile;
+import com.cs407.zoomfoods.services.UserSessionService;
 import com.cs407.zoomfoods.utils.Constants;
 import com.cs407.zoomfoods.utils.StringUtils;
 
@@ -26,6 +30,7 @@ public class CreateProfileActivity extends AppCompatActivity {
     TextView birthdate;
     TextView email;
     Button confirm;
+    Toolbar toolbar;
     private FoodAppDatabase db;
 
     long userId;
@@ -36,24 +41,26 @@ public class CreateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_set_profile);
         db = DBService.getAppDatabase();
 
-        Intent intent = getIntent();
-        userId = intent.getLongExtra(Constants.USER_ID, -1);
-
-        if (userId == -1) {
-            throw new IllegalArgumentException("User ID is required");
-        }
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
 
         firstName = findViewById(R.id.FirstName);
         lastName = findViewById(R.id.LastName);
         birthdate = findViewById(R.id.txtDOB);
         email = findViewById(R.id.txtEmail);
         confirm = findViewById(R.id.btnEditProfileSubmit);
+        toolbar = findViewById(R.id.my_toolbar);
+        // set support Toolbar
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         confirm.setOnClickListener(this::onProfileSaved);
     }
 
     public void showProfileActivity() {
-        Intent viewProfileIntent = new Intent(CreateProfileActivity.this, DisplayProfileActivity.class);
+        Intent viewProfileIntent = new Intent(CreateProfileActivity.this, DashboardActivity.class);
         viewProfileIntent.putExtra(Constants.USER_ID, userId);
         startActivity(viewProfileIntent);
     }
@@ -105,6 +112,21 @@ public class CreateProfileActivity extends AppCompatActivity {
             return false;
         }
 
+        return true;
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_for_creating_profile, menu);
         return true;
     }
 }

@@ -22,11 +22,32 @@
         <!-- Error color. -->
         <item name="colorError">@color/orangeRedTone</item>
 
-        <item name="colorAccent">@color/pastelYellow</item>
+        <item name="colorAccent">@color/shadeDeepGreyBlue</item>
 
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.ZoomFoods" parent="Base.Theme.ZoomFoods" />
+
+        <!-- Base application theme. -->
+        <style name="Water.Theme.MyApplication" parent="Theme.AppCompat.Light.NoActionBar">
+            <!-- Customize your light theme here. -->
+            <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        </style>
+
+        <style name="Dialog.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar" />
+        <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog">
+            <item name="colorAccent">@color/holo_blue_light</item>
+        </style>
+        <style name="Water.Theme.MyApplication.NoActionBar">
+            <item name="windowActionBar">false</item>
+            <item name="windowNoTitle">true</item>
+        </style>
+        <style name="Theme.MyApplication.AppBarOverlay"
+            parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+        <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+
 </resources>

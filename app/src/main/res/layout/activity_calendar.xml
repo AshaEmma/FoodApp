@@ -3,68 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10sp"
-    android:background="@color/transTintGreyBlue"
+    android:layout_height="450sp"
+    android:layout_margin="20sp"
     tools:context=".CalendarView">
 
-    <include
-        layout="@layout/custom_status_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
-        android:layout_height="500sp"
+        android:layout_height="450sp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <!-- Add TextView to display the date -->
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/amaranth"
-            android:text="@string/Calendar"
-            android:textColor="@color/shadeDarkDeepGreyBlue"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/dateView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="20sp"
             android:fontFamily="@font/amaranth"
             android:text="@string/Date"
-            android:textColor="@color/shadeDarkDeepGreyBlue"
-            android:textSize="15sp"
-            />
+            android:textColor="@color/black"
+            android:textSize="20sp" />
         <!-- Add CalendarView to display the Calendar -->
         <CalendarView
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginLeft="5sp"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="10sp"
             android:layout_marginRight="5sp"
             android:layout_marginBottom="70sp"
-            android:background="@color/transGreyViolet"
-
+            android:background="@color/super_transGreyViolet"
             android:focusedMonthDateColor="@color/shadeDeepGreyBlue"
             android:foregroundGravity="center_horizontal"
 
-           />
+            />
 
-<!-- TODO:        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" -->
-<!--        android:theme="@style/CalenderViewCustom"-->
-<!--        android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
+        <!-- TODO:        android:weekDayTextAppearance="@style/CalenderViewWeekCustomText" -->
+        <!--        android:theme="@style/CalenderViewCustom"-->
+        <!--        android:dateTextAppearance="@style/CalenderViewDateCustomText"-->
 
     </LinearLayout>
 

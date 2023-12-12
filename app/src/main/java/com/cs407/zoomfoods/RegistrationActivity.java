@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.cs407.zoomfoods.database.DBService;
 import com.cs407.zoomfoods.database.FoodAppDatabase;
 import com.cs407.zoomfoods.database.entities.User;
+import com.cs407.zoomfoods.services.UserSessionService;
 import com.cs407.zoomfoods.utils.Constants;
 import com.cs407.zoomfoods.utils.StringUtils;
 
@@ -46,9 +47,10 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     public void showCreateProfileActivity(Long userId) {
-        Intent intent = new Intent(RegistrationActivity.this, CreateProfileActivity.class);
-        intent.putExtra(Constants.USER_ID, userId);
+        UserSessionService.getInstance().setUserId(userId);
+        Intent intent = new Intent(this, CreateProfileActivity.class);
         startActivity(intent);
+        finish();
     }
 
     private void onSignupClick(View v) {

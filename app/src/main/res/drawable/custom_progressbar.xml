@@ -7,7 +7,7 @@
             android:shape="ring"
             android:thicknessRatio="16"
             android:useLevel="false">
-            <solid android:color="@color/trans_halo_blue_start"/>
+            <solid android:color="#DDD"/>
         </shape>
     </item>
 
@@ -21,8 +21,8 @@
                 android:thicknessRatio="16"
                 android:useLevel="true">
                 <gradient
-                    android:startColor="@color/halo_blue_alt"
-                    android:endColor="@color/halo_blue_end"
+                    android:startColor="@color/holo_blue_light"
+                    android:endColor="#FF0C2F3C"
                     android:type = "sweep"/>
             </shape>
         </rotate>
