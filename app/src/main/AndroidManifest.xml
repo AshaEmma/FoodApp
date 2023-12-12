@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZoomFoods">
         <activity
+            android:name=".AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FridgeActivity"
+            android:exported="false" />
+        <activity
             android:name=".DisplayProfileActivity"
             android:exported="false" />
         <activity

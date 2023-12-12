@@ -83,5 +83,19 @@
     <string name="update_profile">Update Profile</string>
     <string name="profile">Profile</string>
     <string name="toolbar_style">toolbar_style</string>
+    <string name="Fridge">Fridge</string>
+    <string name="enter_item_to_search">Enter item to search</string>
+    <string name="search">Search</string>
+    <string name="add_product">Add Product</string>
+    <string name="camera">Camera</string>
+    <string name="food_icon">food_icon</string>
+    <string name="set_expiry_date">Expiry Date</string>
+    <string name="save">Save</string>
+    <string name="back_to_fridge">Back to Fridge</string>
+    <string name="unit_prompt">Unit</string>
+    <string name="Quantity">Quantity</string>
+    <string name="Freezer">Freezer</string>
+    <string name="category_prompt">Category</string>
+    <string name="product_name">"Product "</string>
 
 </resources>
