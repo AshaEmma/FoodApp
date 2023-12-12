@@ -139,6 +139,7 @@
         android:textSize="20sp"
         android:textColor="@color/black"
         style="?android:spinnerStyle"
+        app:backgroundTint="@null"
         app:layout_constraintTop_toBottomOf="@id/time_title"
         app:layout_constraintStart_toStartOf="@id/time_title"
         android:layout_marginHorizontal="20sp"

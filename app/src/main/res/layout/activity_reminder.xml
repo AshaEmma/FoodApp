@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:backgroundTintMode="src_over"
     >
 
     <androidx.core.widget.NestedScrollView
@@ -54,6 +55,7 @@
             android:id="@+id/add_reminder_button"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            app:backgroundTint="@null"
             android:src="@drawable/button_add"
             android:insetTop="0dp"
             android:insetBottom="0dp"
