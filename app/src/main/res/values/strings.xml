@@ -83,5 +83,37 @@
     <string name="update_profile">Update Profile</string>
     <string name="profile">Profile</string>
     <string name="toolbar_style">toolbar_style</string>
+    <string name="Fridge">Fridge</string>
+    <string name="enter_item_to_search">Enter item to search</string>
+    <string name="search">Search</string>
+    <string name="add_product">Add Product</string>
+    <string name="camera">Camera</string>
+    <string name="food_icon">food_icon</string>
+    <string name="set_expiry_date">Expiry Date</string>
+    <string name="save">Save</string>
+    <string name="back_to_fridge">Back to Fridge</string>
+    <string name="unit_prompt">Unit</string>
+    <string name="Quantity">Quantity</string>
+    <string name="Freezer">Freezer</string>
+    <string name="category_prompt">Category</string>
+    <string name="product_name">"Product "</string>
+    <string name="enter_search_query">Enter search query</string>
+    <string name="add_breakfast">Add Breakfast</string>
+    <string name="add_lunch">Add Lunch</string>
+    <string name="add_dinner">Add Dinner</string>
+    <string name="dinner">Dinner</string>
+    <string name="lunch">Lunch</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="textview">TextView</string>
+    <string name="date">Date</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="submit">Submit</string>
+    <string name="carbohydrates">Carbohydrates:</string>
+    <string name="serving_size_in_grams">Serving size in grams:</string>
+    <string name="meal">Meal:</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="protein">Protein</string>
+    <string name="fat">Fat:</string>
 
 </resources>

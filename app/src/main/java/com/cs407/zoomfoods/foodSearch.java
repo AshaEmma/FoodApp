@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,6 +17,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +47,9 @@ public class foodSearch extends AppCompatActivity {
 
         searchEditText = findViewById(R.id.searchEditText);
         resultsListView = findViewById(R.id.resultsListView);
+        Toolbar toolbar = findViewById(R.id.foodSearch_toolbar);
+
+        setSupportActionBar(toolbar);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1);
         resultsListView.setAdapter(adapter);
@@ -105,6 +111,12 @@ public class foodSearch extends AppCompatActivity {
         } else {
             Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar_menu, menu);
+        return true;
     }
 
     private void startImportThread() {

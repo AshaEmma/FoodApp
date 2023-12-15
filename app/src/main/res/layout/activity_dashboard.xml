@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@drawable/herbal_spritz"
+    android:background="@drawable/herbal_spritz_trans"
     tools:context=".DashboardActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -33,6 +32,7 @@
 
 
 
+
         <TextView
             android:id="@+id/txtMOTD"
             android:layout_width="wrap_content"
@@ -40,6 +40,7 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/amaranth"
             android:text="@string/dashboard"
+            android:layout_marginTop="110sp"
             android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -57,18 +58,21 @@
                 android:id="@+id/btnGotoViewProfile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:backgroundTint="@color/greyBlueCool"
-                android:backgroundTintMode="src_over"
+                android:layout_marginBottom="10sp"
+                android:background="@drawable/btn_shape3"
                 android:fontFamily="@font/amaranth"
-                android:text="@string/view_profile" />
+                android:text="@string/view_profile"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/btnGotoWaterIntake"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/amaranth"
-                android:foregroundTintMode="src_over"
-                android:text="@string/water_intake" />
+                android:layout_marginBottom="10sp"
+                android:background="@drawable/btn_shape3"
+                android:text="@string/water_intake"
+                android:textSize="20sp"/>
 
 
             <Button
@@ -76,16 +80,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/amaranth"
-                android:foregroundTintMode="src_over"
-                android:text="@string/fridge" />
+                android:layout_marginBottom="10sp"
+                android:background="@drawable/btn_shape3"
+                android:text="@string/fridge"
+                android:textSize="20sp"/>
 
             <Button
                 android:id="@+id/btnGoToFoodIntake"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/amaranth"
-                android:foregroundTintMode="src_over"
-                android:text="@string/food_intake" />
+                android:background="@drawable/btn_shape3"
+                android:text="@string/food_intake"
+                android:textSize="20sp"/>
         </LinearLayout>
 
 

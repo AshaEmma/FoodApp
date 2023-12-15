@@ -44,6 +44,7 @@ public class DisplayProfileActivity extends AppCompatActivity {
         customerName = findViewById(R.id.name);
         birthdate = findViewById(R.id.DOB);
         email = findViewById(R.id.emailAddress);
+        logout = findViewById(R.id.btnLogoutFromProfile);
         toolbar = findViewById(R.id.my_toolbar);
         //set support Toolbar
         setSupportActionBar(toolbar);
@@ -102,7 +103,10 @@ public class DisplayProfileActivity extends AppCompatActivity {
         }
         else if(itemId == R.id.logout){
             Toast.makeText(this, "Sub item 2 selected", Toast.LENGTH_SHORT).show();
-            //openFoodActivity();
+            UserSessionService userSessionService = UserSessionService.getInstance();
+            userSessionService.clearSession();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
             return true;
         }
         return super.onOptionsItemSelected(item);

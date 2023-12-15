@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/matcha_drink"
+    android:background="@drawable/matcha_drink_trans"
     tools:context=".CreateProfileActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/New_Usr_Welcome"
-                android:layout_width="300sp"
+                android:layout_width="400sp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30sp"
@@ -51,7 +51,7 @@
                 android:text="@string/User_Welcome"
                 android:textAlignment="center"
                 android:textColor="@color/shadeDeepGreyBlue"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -67,20 +67,19 @@
                 android:layout_width="150sp"
                 android:layout_height="50sp"
                 android:layout_gravity="top"
-
                 android:layout_marginEnd="10sp"
                 android:layout_marginBottom="10sp"
                 android:autofillHints="username"
                 android:background="@drawable/textfield_shape"
                 android:fontFamily="@font/amaranth"
-                android:gravity="top"
+                android:gravity="center"
                 android:hint="@string/first_name"
                 android:inputType="text"
                 android:paddingStart="5sp"
                 android:paddingTop="3sp"
                 android:paddingEnd="5sp"
-                android:textColor="@color/greyBlueCool"
-                android:textSize="12sp"
+                android:textColor="@color/shadeDeepGreyBlue"
+                android:textSize="20sp"
                 tools:ignore="LabelFor" />
 
             <EditText
@@ -92,14 +91,14 @@
                 android:autofillHints="username"
                 android:background="@drawable/textfield_shape"
                 android:fontFamily="@font/amaranth"
-                android:gravity="top"
+                android:gravity="center"
                 android:hint="@string/last_name"
                 android:inputType="text"
                 android:paddingStart="5sp"
                 android:paddingTop="3sp"
                 android:paddingEnd="5sp"
-                android:textColor="@color/greyBlueCool"
-                android:textSize="12sp"
+                android:textColor="@color/shadeDeepGreyBlue"
+                android:textSize="20sp"
                 tools:ignore="LabelFor" />
 
 
@@ -122,14 +121,14 @@
                 android:background="@drawable/textfield_shape"
                 android:ems="10"
                 android:fontFamily="@font/amaranth"
-                android:gravity="top"
+                android:gravity="center"
                 android:hint="@string/birth_date"
                 android:inputType="date"
                 android:paddingStart="5sp"
                 android:paddingTop="3sp"
                 android:paddingEnd="5sp"
-                android:textColor="@color/greyBlueCool"
-                android:textSize="12sp"
+                android:textColor="@color/shadeDeepGreyBlue"
+                android:textSize="20sp"
                 tools:ignore="LabelFor" />
 
             <EditText
@@ -142,14 +141,14 @@
                 android:background="@drawable/textfield_shape"
                 android:ems="10"
                 android:fontFamily="@font/amaranth"
-                android:gravity="top"
+                android:gravity="center"
                 android:hint="@string/email_address"
                 android:inputType="textEmailAddress"
                 android:paddingStart="5sp"
                 android:paddingTop="3sp"
                 android:paddingEnd="5sp"
-                android:textColor="@color/greyBlueCool"
-                android:textSize="12sp"
+                android:textColor="@color/shadeDeepGreyBlue"
+                android:textSize="20sp"
                 tools:ignore="LabelFor" />
 
             <Button
@@ -160,8 +159,9 @@
                 android:layout_marginTop="40sp"
                 android:background="@drawable/btn_shape2"
                 android:backgroundTint="@null"
-                android:fontFamily="@font/vollkorn_semibold"
+                android:fontFamily="@font/amaranth"
                 android:text="@string/confirm_changes"
+                android:textSize="15sp"
                 tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 

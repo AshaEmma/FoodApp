@@ -61,7 +61,6 @@
         <activity
             android:name=".foodSearch"
             android:exported="false" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
