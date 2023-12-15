@@ -3,7 +3,7 @@
     <item>
         <shape android:shape="oval">
             <gradient android:angle= "270"
-                android:startColor="@color/holo_blue_light"
+                android:startColor="@color/greyBlueCool"
                 android:endColor="#FF0C2F3C"
                 android:type = "linear"/>
             <stroke android:color="@color/white" android:width="3dp"/>

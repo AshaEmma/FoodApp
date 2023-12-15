@@ -22,13 +22,12 @@
                 android:id="@+id/toolbar_activity_reminder"
                 android:layout_width="0dp"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#2785A8"
+                android:background="?attr/colorPrimary"
                 android:elevation="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/recyclerReminderview"
-                app:title="Reminder Schedule"
-                app:titleTextColor="@color/white"/>
+                app:title="Reminder Schedule"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerReminderview"

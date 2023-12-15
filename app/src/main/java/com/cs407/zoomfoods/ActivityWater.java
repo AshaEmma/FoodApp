@@ -17,7 +17,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -25,7 +24,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,13 +36,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 //import com.cs407.zoomfoods.databinding.ActivityReminderBinding;
+
 import com.cs407.zoomfoods.database.DBService;
 import com.cs407.zoomfoods.database.FoodAppDatabase;
 import com.cs407.zoomfoods.database.entities.WaterLog;
 import com.cs407.zoomfoods.databinding.ActivityWaterBinding;
 import com.cs407.zoomfoods.services.UserSessionService;
+
 
 public class ActivityWater extends AppCompatActivity {
     private double current_total = 0;
@@ -68,6 +67,7 @@ public class ActivityWater extends AppCompatActivity {
 
     long userId;
     private FoodAppDatabase db;
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 12;
 
     /*
      * acts as the callback when permission is either granted or refused.
@@ -141,29 +141,32 @@ public class ActivityWater extends AppCompatActivity {
         userId = userSessionService.getUserId();
         checkLoggedIn();
         db = DBService.getAppDatabase();
+        // initialize view
         initializeViews();
-        // Ask for permission for notification
-        requestPermission();
         // Set up tool bar
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        // create notification channel
-        createNotificationchannel();
         // readRecords
         refreshWaterLogList();
+        // Ask for permission for notification
+        requestPermission();
+        // create notification channel
+        createNotificationchannel();
         // set default alarm
         setDefaultAfterTwoHour();
         // set morning alarm
         setDefaultAlarm();
+        //schedule weather-based alarm
+        scheduleWeatherCheckAlarm();
         // ListView onClickListener
         Context context = getApplicationContext();
         recordsListView.setOnItemClickListener((parent, view, position, id) -> {
             WaterLog selected_item = (WaterLog) parent.getItemAtPosition(position);
             Intent intent = new Intent(context, WaterAddActivity.class);
-            Log.i("Information", "selected_item.getAmount(): " + selected_item.getAmount());
-            Log.i("Information", "selected_item.getTitle(): " + selected_item.getTitle());
-            Log.i("Information", "selected_item.getId(): " + selected_item.getId());
+            //Log.i("Information", "selected_item.getAmount(): " + selected_item.getAmount());
+            //Log.i("Information", "selected_item.getTitle(): " + selected_item.getTitle());
+            //Log.i("Information", "selected_item.getId(): " + selected_item.getId());
             intent.putExtra("recordId", selected_item.id);
             startActivity(intent);
         });
@@ -281,7 +284,7 @@ public class ActivityWater extends AppCompatActivity {
 
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
-            Log.i("Information", "Channel created");
+            //Log.i("Information", "Channel created");
         }
     }
 
@@ -308,6 +311,18 @@ public class ActivityWater extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String[] permissions,
+                                           @NonNull int[] grantResults){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                scheduleWeatherCheckAlarm();
+            }
+        }
+    }
+
     private String getCurrentTime(){
         Calendar currentDate = Calendar.getInstance();
         int hour = currentDate.get(Calendar.HOUR_OF_DAY);
@@ -320,21 +335,37 @@ public class ActivityWater extends AppCompatActivity {
     }
 
     private void requestPermission(){
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU){
+        List<String> permissionsNeeded = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // Notification Permission not required till Android 13 (Tiramisu)
-            return;
+            if (ContextCompat.checkSelfPermission(
+                    getApplicationContext(), android.Manifest.permission.POST_NOTIFICATIONS) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                //requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                permissionsNeeded.add(Manifest.permission.POST_NOTIFICATIONS);
+            }
         }
-        if (ContextCompat.checkSelfPermission(
-                getApplicationContext(), android.Manifest.permission.POST_NOTIFICATIONS) !=
-                PackageManager.PERMISSION_GRANTED){
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+        // Check for the permission
+        int permission = ActivityCompat.checkSelfPermission(this.getApplicationContext(),
+                Manifest.permission.ACCESS_FINE_LOCATION);
+
+        if (permission != PackageManager.PERMISSION_GRANTED){
+            permissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            //ActivityCompat.requestPermissions(this,
+            //        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+            //        PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+
+        if(!permissionsNeeded.isEmpty()){
+            ActivityCompat.requestPermissions(this, permissionsNeeded.toArray(new String[0]), PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
 
-    private void setAlarm(int requestCode, int selectedHour, int selectedMins){
+    private void setAlarm(int requestCode, int selectedHour, int selectedMins, long interval){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
-            return;
+            Log.i("Information", "Permission denied for setAlarm from ActivityWater");
+            requestPermission();
         }
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
@@ -351,18 +382,22 @@ public class ActivityWater extends AppCompatActivity {
             Log.i("Information", "Date set behind");
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-        Log.i("Information","Reminder set successfully");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            Log.i("Information", "Build version is larger");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager != null && !alarmManager.canScheduleExactAlarms()){
-                Log.i("Information", "Cannot set exact alarm");
-                Intent in = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                startActivity(in);
+        if(interval == -1){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                //Log.i("Information", "Build version is larger");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && alarmManager != null && !alarmManager.canScheduleExactAlarms()){
+                    Log.i("Information", "Cannot set exact alarm");
+                    Intent in = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                    startActivity(in);
+                }
+                alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+                Log.i("Information", "setExactAndAllowWhileIdle in ActivityWater");
             }
-            alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+            else alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
-        Log.i("Information", "Alarmed being set at " + selectedHour + ":" + selectedMins);
+        else alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), interval, pendingIntent);
+        if (requestCode == -3) Log.i("Information", "Set weather-based alarm at " + selectedHour + ":" + selectedMins);
+        else Log.i("Information","Reminder set successfully at " + selectedHour + ":" + selectedMins + "with requestCode: " + requestCode);
     }
 
     private ArrayList<String> findLatestDrinkTime(){
@@ -402,15 +437,23 @@ public class ActivityWater extends AppCompatActivity {
             Integer toSetHour = lastLatestHour + 2; // if the time is later than 22:00, the alarm needs to set it to the following day
             if (toSetHour > 23) toSetHour = toSetHour - 24;
             cancelAlarm(-2);
-            setAlarm(-2, toSetHour, lastLatestMin); // set the alarm
-            Log.i("Information", "From ActivityWater, the latestDrinkTime: " + lastDrinkTime);
+            setAlarm(-2, toSetHour, lastLatestMin, -1); // set the alarm
+            //Log.i("Information", "From ActivityWater, the latestDrinkTime: " + lastDrinkTime);
         }
     }
+    private void scheduleWeatherCheckAlarm() {
+        long thirtyMinutesInMillis = 30 * 60 * 1000; // 30 minutes in milliseconds
+        // -3 is a unique ID for this specific type of alarm
+        // start at every 8:00 morning
+        //setAlarm(-3, 8, 0, thirtyMinutesInMillis);
+        setAlarm(-3, 12, 13, 5* 60 * 1000); // for testing
 
+    }
     private void setDefaultAlarm(){
         // Set Default notification in every day (drink type)
         int DefaultMorningHour = 8;
         int DefaultMorningMin= 0;
-        setAlarm(-1, DefaultMorningHour, DefaultMorningMin);
+        setAlarm(-1, DefaultMorningHour, DefaultMorningMin, AlarmManager.INTERVAL_DAY);
     }
+
 }

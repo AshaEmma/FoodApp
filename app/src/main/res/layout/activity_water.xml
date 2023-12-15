@@ -29,7 +29,7 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="#2785A8"
+                    android:background="?attr/colorPrimary"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -335,13 +335,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text= "add drink"
-                    android:background="#FF0C2F3C"
+                    android:background="#5F82A8"
                     android:textColor="@color/white"
                     app:backgroundTint="@null"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/type_drink6"
                     android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
                     android:paddingHorizontal="50dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>

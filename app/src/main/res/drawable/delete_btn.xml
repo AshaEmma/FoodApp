@@ -12,7 +12,7 @@
             android:pathData="M62 31A31 31 0 0 1 0 31A31 31 0 0 1 62 31Z"
             android:strokeColor="@color/black"
             android:strokeWidth="2"
-            android:fillColor= "@color/holo_blue_light" />
+            android:fillColor= "@color/greyBlueCool" />
         <path
             android:strokeColor="@color/black"
             android:strokeWidth="1"
