@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class UserSessionService {
     private static final String PREFERENCES_FILE = "app_preferences";
     private static final String USER_ID_KEY = "userId";
+    private static final String LATEST_DRINK_TIME = "latestDrinkTime";
     private SharedPreferences sharedPreferences;
 
     // Holder class for lazy initialization
@@ -43,5 +44,16 @@ public class UserSessionService {
         // Or use editor.clear() to remove all data in SharedPreferences
         editor.apply(); // or editor.commit() for synchronous write
     }
+
+    public String getLatestDrinkTime(){
+        return sharedPreferences.getString(LATEST_DRINK_TIME, "00:00");
+    }
+
+    public void setLatestDrinkTime(String latestDrinkTime){
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(LATEST_DRINK_TIME, latestDrinkTime);
+        editor.apply();
+    }
+
 }
 

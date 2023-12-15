@@ -25,4 +25,5 @@ public interface UserProfileDao {
 
     @Delete
     ListenableFuture<Void> delete(UserProfile userProfile);
+
 }

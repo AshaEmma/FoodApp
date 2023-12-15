@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:backgroundTintMode="src_over"
+    app:layout_constraintGuide_percent="0.5">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_add_water"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#2785A8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/bottle_icon"
+        android:layout_width="50dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/ic_water_cup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_add_water" />
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bottle_icon">
+
+        <ImageView
+            android:id="@+id/pencil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_pencil"
+            android:layout_gravity="center_vertical"
+            />
+        <EditText
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:inputType= "numberDecimal"
+            android:background="@android:color/transparent"
+            android:text="00"
+            android:textColor="@color/black"
+            android:textSize="40sp"
+            android:imeOptions="actionDone"
+            android:layout_gravity="bottom"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:clickable="true"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" fl oz"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_gravity="bottom"/>
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatSeekBar
+        android:id="@+id/slider"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="15dp"
+        android:max="100"
+        android:splitTrack="false"
+        android:thumb="@drawable/seekbar_thumb"
+        android:progressDrawable="@drawable/seekbar_progress"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container"
+        android:layout_marginTop="16dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/32 fl oz"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/slider"
+        app:layout_constraintTop_toBottomOf="@id/slider"
+        android:layout_marginRight="20dp"
+        />
+    <TextView
+        android:id="@+id/title"
+        android:text="Title:"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/slider"
+        app:layout_constraintStart_toStartOf="@id/slider"
+        android:layout_marginTop="20sp"
+        />
+
+    <EditText
+        android:id="@+id/input_text"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="e.g. Water, Green Tea, ..."
+        android:inputType="text"
+        android:textColorHint="#888888"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="@id/title"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/time_title"
+        android:text="Time:"
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/input_text"
+        app:layout_constraintStart_toStartOf="@id/slider"
+        android:layout_marginTop="20sp"
+        />
+
+    <Button
+        android:id="@+id/time_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Set Time"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        style="?android:spinnerStyle"
+        app:backgroundTint="@null"
+        app:layout_constraintTop_toBottomOf="@id/time_title"
+        app:layout_constraintStart_toStartOf="@id/time_title"
+        android:layout_marginHorizontal="20sp"
+        android:layout_marginTop="5dp"/>
+
+    <ImageView
+        android:id="@+id/add_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/button_add"
+        app:layout_constraintTop_toBottomOf="@id/time_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/delete_btn"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="110dp"/>
+
+    <ImageView
+        android:id="@+id/delete_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/delete_btn"
+        app:layout_constraintTop_toBottomOf="@id/time_button"
+        app:layout_constraintStart_toEndOf="@id/add_btn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="110dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,7 +65,8 @@
             android:textAlignment="center"
             android:textColor="@color/shadeDeepGreyBlue"
             android:textSize="30sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
 
         <TextView
             android:id="@+id/name"

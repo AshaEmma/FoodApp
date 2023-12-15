@@ -27,4 +27,8 @@ public class DBService {
     private static String getDBName() {
         return DATABASE_NAME + "_" + UUID.randomUUID();
     }
+
+    /*private static String getDBName() {
+        return DATABASE_NAME;
+    }*/
 }

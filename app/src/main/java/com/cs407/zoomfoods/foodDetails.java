@@ -1,20 +1,23 @@
 package com.cs407.zoomfoods;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.EditText;
 import com.cs407.zoomfoods.utils.Constants;
 
-import androidx.appcompat.app.AppCompatActivity;
+import com.cs407.zoomfoods.services.UserSessionService;
 
 import java.util.Date;
 
@@ -32,19 +35,32 @@ public class foodDetails extends AppCompatActivity {
     private String potassium;
     private String meal;
     private double grams;
+    private String formattedDate;
+    private long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fooddetails);
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
+
         Button submitButton = findViewById(R.id.submitButton);
         Button editButton = findViewById(R.id.editButton);
+        Button deleteButton = findViewById(R.id.deleteButton);
         editButton.setVisibility(View.INVISIBLE);
         submitButton.setVisibility(View.INVISIBLE);
+        deleteButton.setVisibility(View.INVISIBLE);
 
         itemNameTextView = findViewById(R.id.indItemName);
         gramsText = findViewById(R.id.gramsEdit);
-    gramsText.setVisibility(View.INVISIBLE);
+        gramsText.setVisibility(View.INVISIBLE);
+
+        Calendar calendar = Calendar.getInstance();
+        Date date = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
+        formattedDate = dateFormat.format(date);
 
         Intent intent = getIntent();
         if (intent != null) {
@@ -64,6 +80,7 @@ public class foodDetails extends AppCompatActivity {
             }
             else {
                 editButton.setVisibility(View.VISIBLE);
+                deleteButton.setVisibility(View.VISIBLE);
                 itemName = intent.getStringExtra("itemName");
                 calories = intent.getStringExtra("calories");
                 protein = intent.getStringExtra("protein");
@@ -111,21 +128,31 @@ public class foodDetails extends AppCompatActivity {
                 gramsText.setVisibility(View.VISIBLE);
                 itemGrams.setText("Amount in grams:");
                 editButton.setVisibility(View.INVISIBLE);
+                deleteButton.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = getApplicationContext();
+                SQLiteDatabase db = context.openOrCreateDatabase("Zoom Foods Database", Context.MODE_PRIVATE, null);
+                foodLogTable log = new foodLogTable(db);
+                log.deleteFood((int) userId, formattedDate, meal, itemName);
+
+                Intent intent = new Intent(foodDetails.this, foodTracking.class);
+                startActivity(intent);
             }
         });
     }
 
-    public void submitGrams(View view) {
+    private void submitGrams(View view) {
         Context context = getApplicationContext();
         SQLiteDatabase db = context.openOrCreateDatabase("Zoom Foods Database", Context.MODE_PRIVATE, null);
         foodLogTable log = new foodLogTable(db);
         log.createTable(context);
-        Calendar calendar = Calendar.getInstance();
-        Date date = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy");
-        String formattedDate = dateFormat.format(date);
 
-        log.addFood(Integer.parseInt(Constants.USER_ID), formattedDate, meal, itemName, grams, Double.parseDouble(calories) * grams, Double.parseDouble(protein) * grams,
+        log.addFood((int) userId, formattedDate, meal, itemName, grams, Double.parseDouble(calories) * grams, Double.parseDouble(protein) * grams,
                 Double.parseDouble(carbs) * grams, Double.parseDouble(fat) * grams, Double.parseDouble(sodium) * grams, Double.parseDouble(potassium) * grams);
         db.close();
 
@@ -133,7 +160,7 @@ public class foodDetails extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void changeText() {
+    private void changeText() {
         TextView mealText = findViewById(R.id.meal_TextView);
         TextView caloriesText = findViewById(R.id.calories_TextView);
         TextView proteinText = findViewById(R.id.protein_TextView);
@@ -157,5 +184,13 @@ public class foodDetails extends AppCompatActivity {
         fatText.setText(fatString);
         sodiumText.setText(sodiumString);
         potassiumText.setText(potassiumString);
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
