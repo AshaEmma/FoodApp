@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="category_array">Category</string-array>
+    <string-array name="category_array">
+        <item>Vegetables</item>
+        <item>Fruit</item>
+        <item>Grain</item>
+        <item>Meat</item>
+        <item>Dairy</item>
+        <item>Oils</item>
+        <item>Beverages</item>
+        <item>Other</item>
+    </string-array>
     <string-array name="unit_array">Unit</string-array>
 </resources>

@@ -129,7 +129,7 @@ public class FridgeActivity extends AppCompatActivity {
 
         @NonNull
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
             FoodItem item = getItem(position);
 
             if (convertView == null) {

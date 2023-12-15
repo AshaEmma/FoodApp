@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cs407.zoomfoods.services.UserSessionService;
+
 import java.util.Calendar;
 
 public class AddProductActivity extends AppCompatActivity {
@@ -24,12 +26,15 @@ public class AddProductActivity extends AppCompatActivity {
     private EditText editTextExpiryDate;
     private DatePickerDialog datePickerDialog;
 
+    long userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_product);
-        Button buttonFridge = findViewById(R.id.buttonFridge);
-        Button buttonFreezer = findViewById(R.id.buttonFreezer);
+        UserSessionService userSessionService = UserSessionService.getInstance();
+        userId = userSessionService.getUserId();
+        checkLoggedIn();
 
         editTextNewItem = findViewById(R.id.editTextNewItem);
         editTextQuantity = findViewById(R.id.editTextQuantity);
@@ -63,9 +68,10 @@ public class AddProductActivity extends AppCompatActivity {
 
         buttonFridge.setOnClickListener(v -> storageType = "Fridge");
         buttonFreezer.setOnClickListener(v -> storageType = "Freezer");
+        buttonSave.setOnClickListener(v -> onSaveClicked());
 
         Button buttonBackToFridge = findViewById(R.id.buttonBackToFridge);
-        buttonBackToFridge.setOnClickListener(v -> finish());
+        buttonBackToFridge.setOnClickListener(v -> backToFridge());
     }
 
     public void onStorageTypeClicked(View view) {
@@ -83,7 +89,20 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    public void onSaveClicked(View view) {
+    public void backToFridge(){
+        Intent intent = new Intent(this, FridgeActivity.class);
+        startActivity(intent);
+    }
+
+    private void checkLoggedIn() {
+        if (userId == -1) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void onSaveClicked() {
         String item = editTextNewItem.getText().toString().trim();
         String category = spinnerCategory.getSelectedItem().toString();
         String quantity = editTextQuantity.getText().toString().trim();
