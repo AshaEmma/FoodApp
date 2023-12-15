@@ -73,6 +73,8 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void openFridgeActivity(){
        //TODO: navigate to fridge activity
+        Intent fridgeActivityIntent = new Intent (DashboardActivity.this, AddProductActivity.class);
+        startActivity(fridgeActivityIntent);
     }
 
     public void openFoodActivity(){
