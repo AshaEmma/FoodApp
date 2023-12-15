@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +18,7 @@ import com.cs407.zoomfoods.services.UserSessionService;
 
 import java.util.Calendar;
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddProductActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText editTextNewItem, editTextQuantity;
     private Spinner spinnerCategory, spinnerUnit;
@@ -45,10 +46,14 @@ public class AddProductActivity extends AppCompatActivity {
         buttonFreezer = findViewById(R.id.buttonFreezer);
         editTextExpiryDate = findViewById(R.id.editTextExpiryDate);
 
+        spinnerCategory.setOnItemSelectedListener(this);
+
         ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(categoryAdapter);
+
+
 
         ArrayAdapter<CharSequence> unitAdapter = ArrayAdapter.createFromResource(this,
                 R.array.unit_array, android.R.layout.simple_spinner_item);
@@ -94,6 +99,16 @@ public class AddProductActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int pos, long id){
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent){
+
+    }
+
     private void checkLoggedIn() {
         if (userId == -1) {
             Intent intent = new Intent(this, LoginActivity.class);
@@ -102,28 +117,33 @@ public class AddProductActivity extends AppCompatActivity {
         }
     }
 
-    public void onSaveClicked() {
-        String item = editTextNewItem.getText().toString().trim();
-        String category = spinnerCategory.getSelectedItem().toString();
-        String quantity = editTextQuantity.getText().toString().trim();
-        String unit = spinnerUnit.getSelectedItem().toString();
-        String expiryDate = editTextExpiryDate.getText().toString().trim();
-
-        if (!item.isEmpty() && !category.isEmpty() && !quantity.isEmpty()
-                && !unit.isEmpty() && !storageType.isEmpty() && !expiryDate.isEmpty()) {
-
-            Intent returnIntent = new Intent();
-            returnIntent.putExtra("ITEM", item);
-            returnIntent.putExtra("CATEGORY", category);
-            returnIntent.putExtra("QUANTITY", quantity);
-            returnIntent.putExtra("UNIT", unit);
-            returnIntent.putExtra("STORAGE_TYPE", storageType);
-            returnIntent.putExtra("EXPIRY_DATE", expiryDate);
-
-            setResult(RESULT_OK, returnIntent);
-            finish(); // Closing the activity
-        } else {
-            Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
-        }
+    public void onSaveClicked(){
+        Intent intent = new Intent(this, FridgeActivity.class);
+        startActivity(intent);
     }
+//
+//    public void onSaveClicked() {
+//        String item = editTextNewItem.getText().toString().trim();
+//        String category = spinnerCategory.getSelectedItem().toString();
+//        String quantity = editTextQuantity.getText().toString().trim();
+//        String unit = spinnerUnit.getSelectedItem().toString();
+//        String expiryDate = editTextExpiryDate.getText().toString().trim();
+//
+//        if (!item.isEmpty() && !category.isEmpty() && !quantity.isEmpty()
+//                && !unit.isEmpty() && !storageType.isEmpty() && !expiryDate.isEmpty()) {
+//
+//            Intent returnIntent = new Intent();
+//            returnIntent.putExtra("ITEM", item);
+//            returnIntent.putExtra("CATEGORY", category);
+//            returnIntent.putExtra("QUANTITY", quantity);
+//            returnIntent.putExtra("UNIT", unit);
+//            returnIntent.putExtra("STORAGE_TYPE", storageType);
+//            returnIntent.putExtra("EXPIRY_DATE", expiryDate);
+//
+//            setResult(RESULT_OK, returnIntent);
+//            finish(); // Closing the activity
+//        } else {
+//            Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+//        }
+//    }
     }

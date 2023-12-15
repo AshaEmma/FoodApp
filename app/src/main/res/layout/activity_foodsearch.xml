@@ -1,36 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".foodSearch">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/foodSearch_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:popupTheme="@style/toolbar_style" />
 
     <EditText
         android:id="@+id/searchEditText"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:hint="Enter search query"
-        app:layout_constraintBaseline_toBaselineOf="@+id/searchButton"
-        app:layout_constraintEnd_toStartOf="@+id/searchButton"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_width="300sp"
+        android:layout_height="44sp"
+        android:hint="@string/enter_search_query"
+        android:layout_marginTop="50sp"
+        android:layout_gravity="center_horizontal"
+        />
 
     <Button
         android:id="@+id/searchButton"
         android:layout_width="138dp"
         android:layout_height="45dp"
-        android:text="Search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/searchEditText"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/search"
+        android:background="@drawable/btn_shape3"
+        android:layout_marginTop="10sp"
+        android:layout_gravity="center_horizontal"
+
+         />
 
     <ListView
         android:id="@+id/resultsListView"
-        android:layout_width="414dp"
+        android:layout_width="match_parent"
         android:layout_height="678dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="20sp"
+      />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

@@ -27,7 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         Button waterIntake = findViewById(R.id.btnGotoWaterIntake);
         Button fridge = findViewById(R.id.btnGoToFridge);
         Button foodIntake = findViewById(R.id.btnGoToFoodIntake);
-        Button logout = findViewById(R.id.btnLogout);
+
 
         Toolbar toolbar = findViewById(R.id.my_toolbar);
         //set up tool bar
@@ -39,7 +39,7 @@ public class DashboardActivity extends AppCompatActivity {
         waterIntake.setOnClickListener(v -> openWaterActivity());
         fridge.setOnClickListener(v -> openFridgeActivity());
         foodIntake.setOnClickListener(v -> openFoodActivity());
-        //logout.setOnClickListener(v -> logoutDashboard());
+
     }
 
     private void checkLoggedIn() {
@@ -54,12 +54,10 @@ public class DashboardActivity extends AppCompatActivity {
 
     private void logoutDashboard(){
         UserSessionService userSessionService = UserSessionService.getInstance();
-        long userId = userSessionService.getUserId();
-        if(userId != -1){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
+        userSessionService.clearSession();
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
 
-        }
     }
 
     public void openCreateProfileActivity(){

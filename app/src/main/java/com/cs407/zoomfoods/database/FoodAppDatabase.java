@@ -20,4 +20,6 @@ public abstract class FoodAppDatabase extends RoomDatabase {
     public abstract WaterLogDao waterLogDao();
 
     public abstract ReminderItemDao reminderItemDao();
+
+
 }
